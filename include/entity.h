@@ -8,26 +8,30 @@
 
 typedef struct Entity_S
 {
+	//data
+	GFC_TextLine	name;
+
+	Sprite*			sprite; // entity's sprite if it has one
+	GFC_Color		color_shift;
+	GFC_Vector2D	center; //for scaling in draw?
+	GFC_Vector2D	scale; //for drawing only
+	GFC_Vector2D	flip; //x flip, y flip, for drawing only
+	float			rotation; //for drawing only
+	int				frame; // current animation frame
+
+	GFC_Vector2D	position;
+	GFC_Vector2D	velocity;
+	GFC_Vector2D	acceleration; // maybe don't need for now
+	
+	Uint8			_inuse;	//flag for memory management
+	Uint8			alive;	//flag for life
+
 	//behavior
 	void (*think) (struct Entity_S* self); //called every frame for entity to decide things
 	void (*update) (struct Entity_S* self); //called every frame to update its state
 	int (*draw) (struct Entity_S* self); //custom drawing code, if -1 skip
 	void (*free) (void* medata); //called when entity is cleaned up to clean custom data
 	void* data;                            //entity custom data beyond basics
-
-	//data
-	Sprite*			sprite; // entity's sprite if it has one
-	GFC_Color		color_shift;
-	GFC_Vector2D	position;
-	GFC_Vector2D	center;
-	GFC_Vector2D	scale;
-	GFC_Vector2D	flip;
-	GFC_TextLine	name;
-	float			rotation;
-	int				frame;
-	Uint8			_inuse;	//flag for memory management
-	Uint8			alive;	//flag for life
-
 
 }Entity;
 

@@ -2,9 +2,10 @@
 #include "simple_logger.h"
 
 #include "gf2d_graphics.h"
-#include "gf2d_sprite.h"
+//#include "gfc_input.h"
+//#include "gf2d_sprite.h"
 
-#include "entity.h"
+#include "player.h"
 
 int main(int argc, char * argv[])
 {
@@ -12,7 +13,7 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite* sprite;
-    Entity* mouseEnt;
+    Entity* mouseEnt, *player;
     
     int mx,my;
     float mf = 0;
@@ -31,19 +32,28 @@ int main(int argc, char * argv[])
         0);
     gf2d_graphics_set_frame_delay(16);
     gf2d_sprite_init(1024);
+
+    gfc_input_init("config/input.cfg");
+
+    //my inits
     entity_system_init(1024);
+
+
     SDL_ShowCursor(SDL_DISABLE);
     
     /*demo setup*/
-    sprite = gf2d_sprite_load_image("images/backgrounds/bg_flat.png");
+    sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
     mouseEnt = entity_new();
+    player = player_new();
     mouseEnt->sprite = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
+
     slog("press [escape] to quit");
     /*main game loop*/
     while(!done)
     {
         SDL_PumpEvents();   // update SDL's internal event structures
         keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
+        gfc_input_update();
         /*update things here*/
         SDL_GetMouseState(&mx,&my);
         mf+=0.1;
@@ -51,6 +61,9 @@ int main(int argc, char * argv[])
         mouseEnt->position = gfc_vector2d(mx, my);
         mouseEnt->color_shift = mouseGFC_Color;
         mouseEnt->frame = mf;
+        //slog("mouse position: %f, %f", mouseEnt->position.x, mouseEnt->position.y);
+        entity_update_all();
+
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
@@ -62,11 +75,12 @@ int main(int argc, char * argv[])
             //UI elements last
 
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
-        
-        if (keys[SDL_SCANCODE_ESCAPE])done = 1; // exit condition
+
+        if (gfc_input_command_down("exit")) {done = 1;}
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
+    exit(0); //wasn't in here before
     return 0;
 }
 /*eol@eof*/

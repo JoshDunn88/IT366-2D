@@ -129,13 +129,14 @@ void entity_update(Entity* self)
 	if (!self) return;
 	//basic update stuff here before self update
 	// physics etc.
+	//gfc_vector2d_add(self->position, self->position, self->velocity);
+
 	//meupdate
 	if (self->update) self->update(self);
 }
 
 void entity_draw(Entity* self)
 {
-	GFC_Color mineColor;
 	if (!self) return;
 	if (self->draw) {
 		self->draw(self);

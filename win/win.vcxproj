@@ -173,6 +173,7 @@
     <ClInclude Include="..\include\gf2d_draw.h" />
     <ClInclude Include="..\include\gf2d_graphics.h" />
     <ClInclude Include="..\include\gf2d_sprite.h" />
+    <ClInclude Include="..\include\player.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\gfc\simple_json\src\simple_json.c" />
@@ -208,6 +209,7 @@
     <ClCompile Include="..\src\gf2d_draw.c" />
     <ClCompile Include="..\src\gf2d_graphics.c" />
     <ClCompile Include="..\src\gf2d_sprite.c" />
+    <ClCompile Include="..\src\player.c" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
