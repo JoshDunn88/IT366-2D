@@ -30,6 +30,7 @@ Entity* player_new()
     }
  
     //data
+    self->type = E_PLAYER;
     self->position = gfc_vector2d(500, 300);
     self->rotation = 0;
     self->scale = gfc_vector2d(5, 5);

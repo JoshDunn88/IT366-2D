@@ -6,6 +6,7 @@
 //#include "gf2d_sprite.h"
 
 #include "player.h"
+#include "enemy.h"
 
 int main(int argc, char * argv[])
 {
@@ -13,7 +14,7 @@ int main(int argc, char * argv[])
     int done = 0;
     const Uint8 * keys;
     Sprite* sprite;
-    Entity* mouseEnt, *player;
+    Entity* mouseEnt, *player, *enemy;
     
     int mx,my;
     float mf = 0;
@@ -45,6 +46,7 @@ int main(int argc, char * argv[])
     sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
     mouseEnt = entity_new();
     player = player_new();
+    enemy = enemy_new();
     mouseEnt->sprite = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
 
     slog("press [escape] to quit");

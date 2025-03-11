@@ -6,11 +6,18 @@
 #include "gfc_vector.h"
 #include "gf2d_sprite.h"
 
+typedef enum
+{
+	E_DEFAULT,
+	E_PLAYER,
+	E_ENEMY
+}E_Type;
+
 typedef struct Entity_S
 {
 	//data
 	GFC_TextLine	name;
-
+	E_Type			type;
 	Sprite*			sprite; // entity's sprite if it has one
 	GFC_Color		color_shift;
 	GFC_Vector2D	center; //for scaling in draw?
@@ -89,6 +96,11 @@ void entity_think(Entity* self);
 
 void entity_update(Entity* self);
 
+/*
+ * @brief get player entity
+ * @return pointer to player, or NULL if not found
 
+*/
+Entity* get_player();
 
 #endif

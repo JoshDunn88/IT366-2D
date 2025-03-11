@@ -94,6 +94,7 @@ Entity* entity_new()
 		_entity_manager.entityList[i].scale = gfc_vector2d(1, 1);
 		_entity_manager.entityList[i].alive = 1;
 		_entity_manager.entityList[i].frame = 0;
+		_entity_manager.entityList[i].type = E_DEFAULT;
 		slog("new entity success");
 		return &_entity_manager.entityList[i];
 	}
@@ -155,4 +156,15 @@ void entity_draw(Entity* self)
 	);
 	//draw bounding box
 
+}
+
+Entity* get_player() 
+{
+	int i;
+	for (int i = 0; i < _entity_manager.entityMax; i++) {
+		if (!_entity_manager.entityList[i]._inuse) continue;
+		if (_entity_manager.entityList[i].type == E_PLAYER)
+			return &_entity_manager.entityList[i];
+	}
+	return NULL;
 }
