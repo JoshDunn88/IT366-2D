@@ -172,6 +172,7 @@
     <ClInclude Include="..\include\collision.h" />
     <ClInclude Include="..\include\enemy.h" />
     <ClInclude Include="..\include\entity.h" />
+    <ClInclude Include="..\include\font.h" />
     <ClInclude Include="..\include\gf2d_draw.h" />
     <ClInclude Include="..\include\gf2d_graphics.h" />
     <ClInclude Include="..\include\gf2d_sprite.h" />
@@ -211,6 +212,7 @@
     <ClCompile Include="..\src\collision.c" />
     <ClCompile Include="..\src\enemy.c" />
     <ClCompile Include="..\src\entity.c" />
+    <ClCompile Include="..\src\font.c" />
     <ClCompile Include="..\src\game.c" />
     <ClCompile Include="..\src\gf2d_draw.c" />
     <ClCompile Include="..\src\gf2d_graphics.c" />

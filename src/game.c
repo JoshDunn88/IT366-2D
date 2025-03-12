@@ -7,6 +7,7 @@
 
 #include "player.h"
 #include "enemy.h"
+#include "font.h"
 
 int main(int argc, char * argv[])
 {
@@ -38,6 +39,7 @@ int main(int argc, char * argv[])
 
     //my inits
     entity_system_init(1024);
+    font_init();
 
 
     SDL_ShowCursor(SDL_DISABLE);
@@ -77,6 +79,7 @@ int main(int argc, char * argv[])
             entity_draw_all();
 
             //UI elements last
+            font_draw_text("press ESCAPE to quit\n is fairly neat", FS_large, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
 
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
 

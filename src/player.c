@@ -102,6 +102,8 @@ void player_update(Entity* self)
 
     //slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
     //slog("player position: %f, %f", self->position.x, self->position.y);
+
+    check_world_bounds(self->collider); //todo add rect collision kinda done
     return;
 }
 
@@ -109,9 +111,37 @@ void player_draw(Entity* self) {
     //nothin yet
 }
 
+void draw_hud(Entity* self) {
+    if (!self) return;
+    char healthVal[10], speed[20];
+    Player_Data* dat;
+    dat = (struct Player_Data*)(self->data);
+
+    snprintf(healthVal, sizeof(healthVal), "%i", dat->health);
+    snprintf(speed, sizeof(speed), "%f", gfc_vector2d_magnitude(self->collider->velocity));
+
+    //hud
+    //slog("health %i, %i", dat->health, *healthVal);
+    //slog("food %i, %i", dat->prey_eaten, *foodVal);
+    //slog("speed %f, %f", gfc_vector3d_magnitude(self->collider->velocity), *speed);
+    //gf2d_font_draw_line_tag(healthVal, FT_H1, GFC_COLOR_GREEN, gfc_vector2d(300, 10));
+    //gf2d_font_draw_line_tag(speed, FT_H1, GFC_COLOR_BLUE, gfc_vector2d(900, 10));
+}
 void player_free(void* data)
 {
     if (!data) return;
     slog("freeing player data");
     free(data);
+}
+
+void check_world_bounds(Collider* self) {
+    int left_bound = 0;
+    int right_bound = 1200;
+    int top_bound = 0;
+    int bottom_bound = 720;
+    if (!self) return;
+    if (self->position.x + self->shape.s.r.w > right_bound) self->position.x = right_bound - self->shape.s.r.w - 1;
+    if (self->position.x < left_bound) self->position.x = left_bound + 1;
+    if (self->position.y + self->shape.s.r.h > bottom_bound) self->position.y = bottom_bound - self->shape.s.r.h - 1;
+    if (self->position.y < top_bound) self->position.y = top_bound + 1;
 }

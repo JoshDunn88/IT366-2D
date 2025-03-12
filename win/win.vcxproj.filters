@@ -132,6 +132,9 @@
     <ClInclude Include="..\include\time.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\font.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\game.c">
@@ -246,6 +249,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\time.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\font.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

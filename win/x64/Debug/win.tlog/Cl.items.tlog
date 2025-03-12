@@ -29,6 +29,7 @@ C:\Users\JoshD\source\repos\IT366-2D\gfc\src\miniz.c;C:\Users\JoshD\source\repos
 C:\Users\JoshD\source\repos\IT366-2D\src\collision.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\collision.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\enemy.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\enemy.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\entity.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\entity.obj
+C:\Users\JoshD\source\repos\IT366-2D\src\font.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\font.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\game.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\game.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\gf2d_draw.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\gf2d_draw.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\gf2d_graphics.c;C:\Users\JoshD\source\repos\IT366-2D\win\x64\Debug\gf2d_graphics.obj

@@ -29,4 +29,7 @@ void player_update(Entity* self);
 void player_draw(Entity* self);
 void player_free(void* data);
 
+void draw_hud(Entity* self);
+void check_world_bounds(Collider* self);
+
 #endif
