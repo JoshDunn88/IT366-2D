@@ -1,0 +1,220 @@
+#include "simple_logger.h"
+#include "gfc_matrix.h"
+#include "collision.h"
+
+
+Collider* collider_setup(GFC_Shape shape) {
+	Collider* self = malloc(sizeof(Collider));
+	if (!self) {
+		slog("could not allocate collider");
+		return NULL;
+	}
+
+
+	self->velocity = gfc_vector2d(0, 0);
+	//change this to account for other prim types later
+	self->shape = shape;
+	
+	if (shape.type == ST_RECT) {
+		self->position = gfc_vector2d(shape.s.r.x, shape.s.r.y);
+	}
+	else if (shape.type == ST_CIRCLE) {
+		self->position = gfc_vector2d(shape.s.c.x - shape.s.c.r, shape.s.c.y - shape.s.c.r); //keep top left as position
+	}
+	
+	//self->offset = gfc_vector3d(0, 0, 0);
+	//self->gravity = 0;
+
+	//self->scale = gfc_vector3d(1, 1, 1);
+	self->isTrigger = 0;
+	self->triggerActive = 0;
+
+	return self;
+}
+
+Collider* circle_collider_new(GFC_Vector2D position, float radius) {
+	GFC_Shape shape = { 0 };
+	shape.s.c = gfc_circle(position.x, position.y, radius);
+	shape.type = ST_CIRCLE;
+	return collider_setup(shape);
+}
+
+Collider* rect_collider_new(GFC_Vector2D position, GFC_Vector2D dimensions) {
+	GFC_Shape shape = { 0 };
+	shape.s.r = gfc_rect(position.x, position.y, dimensions.x, dimensions.y);
+	shape.type = ST_RECT;
+	return collider_setup(shape);
+}
+
+void collider_free(Collider* self) {
+	//expand when adding sector list and other stuff
+}
+
+//TODO make this predictive with velocity not current position?
+Uint8 check_collision(Collider* self, Collider* other) { //, GFC_Vector2D self_vel, GFC_Vector2D other_vel
+	if (!self || !other) return 0;
+	if (self == other) {
+		//slog("no thats me");
+		return 0;
+	}//do not collide with self
+
+	if (self->shape.type == ST_RECT) { // && Layer!= LAYER
+		if (other->shape.type == ST_RECT) {
+			return predictive_rect_overlap(self->shape.s.r, other->shape.s.r, self->position, other->position); //account for offset
+		}
+		if (other->shape.type == ST_CIRCLE)
+			return 0; //not implemented
+		//if (otherother->primitive.type == GPT_PLANE)
+	}
+
+	if (self->shape.type == ST_CIRCLE) { // && Layer!= LAYER
+		if (other->shape.type == ST_RECT) {
+			return 0; //not implemented
+		}
+		if (other->shape.type == ST_CIRCLE)
+			return predictive_circle_overlap(self->shape.s.c, other->shape.s.c, self->position, other->position); //todo make predictive
+		//return gfc_box_overlap(self->primitive.s.b, other->primitive.s.b); not implemented yet
+	}
+	return 0;
+}
+void do_collision(Collider* self, Collider* other) {
+	if (!self || !other) return;
+
+	//special cases
+
+	//REDO THIS THIS IS OLD, use the actual distance like in box
+	//THIS IS SPHERE 
+	if (self->shape.type == ST_CIRCLE && other->shape.type == ST_CIRCLE) {
+
+		GFC_Vector2D distance;
+		GFC_Vector2D scaledDistance;
+		gfc_vector2d_sub(distance, self->position, other->position);
+		gfc_vector2d_normalize(&distance);
+		//edit scale for collision force/elasticity
+		//gfc_vector3d_scale(scaledDistance, distance, 0.035);
+
+
+		//use layers to determine if any body is fixed
+		if (self->layer != C_WORLD)
+			gfc_vector2d_add(self->position, self->position, self->shape.s.c.r + other->shape.s.c.r - distance);
+
+		//only do self
+		//if (other->layer != C_WORLD)
+			//gfc_vector2d_add(other->position, other->position, self->shape.s.s.r + other->shape.s.s.r - distance);
+
+		return;
+	}
+
+	//THIS IS BOX 
+	//the concept of minimum overlap came from https://youtu.be/oOEnWQZIePs?si=ZMblmzP0ep0f-bJT
+	if (self->shape.type == ST_RECT && other->shape.type == ST_RECT) {
+		GFC_Vector2D boxDistance;
+		gfc_vector2d_sub(boxDistance, self->position, other->position);
+
+		float xDist = SDL_fabsf(boxDistance.x);
+		float yDist = SDL_fabsf(boxDistance.y);
+		float xDistRel = xDist / (self->shape.s.r.w / 2 + other->shape.s.r.w / 2);
+		float yDistRel = yDist / (self->shape.s.r.h / 2 + other->shape.s.r.h / 2);
+		//slog("dists: x %f, y %f", xDist, yDist);
+		float* max;
+		max = &xDistRel;
+		if (yDistRel > *max) max = &yDistRel;
+		//slog("max %f", *max);
+
+		if (max == &xDistRel) {
+			//slog("do x");
+			if (self->layer != C_WORLD) {
+
+				if (boxDistance.x > 0)
+					self->position.x += (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
+				else
+					self->position.x -= (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
+				self->velocity.x /= 2;
+			}
+			/* do collision adjustment only for self?
+			else {
+				if (boxDistance.x > 0)
+					other->position.x -= (self->scale.x / 2 + other->scale.x / 2) - xDist + 0.001f;
+				else
+					other->position.x += (self->scale.x / 2 + other->scale.x / 2) - xDist + 0.001f;
+				other->velocity.x = self->velocity.x;
+			}
+			*/
+			return;
+		}
+		else if (max == &yDistRel) {
+			//slog("do y");
+			if (self->layer != C_WORLD) {
+
+				if (boxDistance.y > 0)
+					self->position.y += (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
+				else
+					self->position.y -= (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
+
+				self->velocity.y /= 2;
+			}
+			/* do collision adjustment only for self?
+			else {
+				if (boxDistance.y > 0)
+					other->position.y -= (self->scale.y / 2 + other->scale.y / 2) - yDist + 0.001f;
+				else
+					other->position.y += (self->scale.y / 2 + other->scale.y / 2) - yDist + 0.001f;
+				other->velocity.y = self->velocity.y;
+			}
+			*/
+			return;
+		}
+		
+	}
+
+}
+Uint8 predictive_circle_overlap(GFC_Circle a, GFC_Circle b, GFC_Vector2D a_d, GFC_Vector2D b_d)
+{
+	GFC_Vector2D v;
+	gfc_vector2d_set(v, (a.x + a_d.x) - (b.x + b_d.x), (a.y + a_d.y) - (b.y + b_d.y));
+	if (gfc_vector2d_magnitude_compare(v, a.r + b.r) <= 0)
+	{
+		return 1;
+	}
+	return 0;
+}
+
+Uint8 predictive_rect_overlap(GFC_Rect a, GFC_Rect b, GFC_Vector2D a_d, GFC_Vector2D b_d)
+{
+	if ((a.x + a_d.x > b.x + b_d.x + b.w) || (b.x + b_d.x > a.x + a_d.x + a.w) ||
+		(a.y + a_d.y > b.y + b_d.y + b.h) || (b.y + b_d.y > a.y + a_d.y + a.h))
+	{
+		return 0;
+	}
+	return 1;
+}
+
+//collider will no longer have its own global position, just offset
+void collider_update(Collider* self) {
+	GFC_Vector2D oldPos = self->position;
+	//update stuff
+	gfc_vector2d_add(self->position, self->position, self->velocity);
+
+	//if (self->velocity.y > 0.1) self->velocity.y += self->gravity; no gravity yet
+	// no friction yet
+	//self->velocity.x *= 0.6f;
+	//if (self->gravity == 0)
+		//self->velocity.y *= 0.6f;
+
+	/* no longer moving primitives
+	if (self->shape.type == GPT_BOX) {
+		self->shape.s.b.x = self->position.x - self->primitive.s.b.w / 2;
+		self->shape.s.b.y = self->position.y - self->primitive.s.b.h / 2;
+	}
+	else if (self->shape.type == GPT_SPHERE) {
+		self->shape.s.s.x = self->position.x;
+		self->shape.s.s.y = self->position.y;
+	}
+	*/
+	//gfc_primitive_offset(self->primitive, gfc_vector3d_subbed(self->position, oldPos));
+}
+
+void set_as_trigger(Collider* self, Uint8 toBeTrigger) {
+	if (!self) return;
+	self->isTrigger = toBeTrigger;
+}

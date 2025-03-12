@@ -46,7 +46,9 @@ int main(int argc, char * argv[])
     sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
     mouseEnt = entity_new();
     player = player_new();
+    slog("player made");
     enemy = enemy_new();
+    slog("enemy made");
     mouseEnt->sprite = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
 
     slog("press [escape] to quit");

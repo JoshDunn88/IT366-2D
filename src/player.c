@@ -31,10 +31,15 @@ Entity* player_new()
  
     //data
     self->type = E_PLAYER;
-    self->position = gfc_vector2d(500, 300);
-    self->rotation = 0;
-    self->scale = gfc_vector2d(5, 5);
     self->sprite = gf2d_sprite_load_image("images/ghoul.png");
+    self->scale = gfc_vector2d(5, 5);
+    self->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d_multiply(gfc_vector2d(self->sprite->frame_w, self->sprite->frame_h), self->scale));
+    self->collider->position = gfc_vector2d(500, 300);
+    self->collider->isTrigger = false;
+    self->collider->layer = C_PLAYER;
+    self->rotation = 0;
+    
+    //self->sprite = gf2d_sprite_load_image("images/ghoul.png");
     self->color_shift = gfc_color(1,1,1,1);
     //behavior
     self->think = player_think;
@@ -59,40 +64,40 @@ void player_update(Entity* self)
     {
         //slog("player moved left");
         self->flip.x = 1;
-        self->position.x += -5;
+        self->collider->position.x += -5;
     }
     else if (gfc_input_command_released("player_left"))
     {
         //slog("player released left");
-        self->position.x += 0;
+        //self->collider->position.x += 0;
     }
 
     if (gfc_input_command_down("player_right"))
     {
         self->flip.x =0;
-        self->position.x += 5;
+        self->collider->position.x += 5;
     }
     else if (gfc_input_command_released("player_right"))
     {
-        self->position.x += 0;
+        //self->collider->position.x += 0;
     }
 
     if (gfc_input_command_down("player_up"))
     {
-        self->position.y += -5;
+        self->collider->position.y += -5;
     }
     else if (gfc_input_command_released("player_up"))
     {
-        self->position.y += 0;
+        //self->collider->position.y;
     }
 
     if (gfc_input_command_down("player_down"))
     {
-        self->position.y += 5;
+        self->collider->position.y += 5;
     }
     else if (gfc_input_command_released("player_down"))
     {
-        self->position.y += 0;
+        //self->collider->position.y;
     }
 
     //slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
