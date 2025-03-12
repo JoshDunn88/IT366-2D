@@ -46,7 +46,7 @@ Entity* player_new()
     self->think = player_think;
     self->update = player_update;
     self->free = player_free;
-    self->draw = NULL;
+    self->draw = player_draw;
     self->data = player_data_new();
 
     return self;
@@ -105,16 +105,38 @@ void player_update(Entity* self)
     {
         self->collider->velocity.y = 0;
     }
+    if (gfc_input_command_pressed("jump"))
+    {
+        slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
+        slog("player position: %f, %f", self->position.x, self->position.y);
+    }
 
     //slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
     //slog("player position: %f, %f", self->position.x, self->position.y);
 
     check_world_bounds(self->collider); //todo add rect collision kinda done
+
+    camera_center_on(self->position);
     return;
 }
 
 void player_draw(Entity* self) {
-    //nothin yet
+
+    GFC_Vector2D offset, position;
+    position = gfc_vector2d(0, 0);
+    offset = camera_get_offset();
+    gfc_vector2d_add(position, self->position, offset);
+
+    gf2d_sprite_draw(
+        self->sprite,
+        self->position,
+        &self->scale,
+        &self->center,
+        &self->rotation,
+        &self->flip,
+        &self->color_shift,
+        self->frame
+    );
 }
 
 void draw_hud(Entity* self) {

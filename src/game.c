@@ -41,7 +41,12 @@ int main(int argc, char * argv[])
     entity_system_init(1024);
     font_init();
 
-
+    //todo make world object and do cam shit in there
+    camera_set_bounds(gfc_rect(0, 0, 2560, 1440));
+    camera_set_size(gfc_vector2d(1200, 720));
+    //camera_apply_bounds();
+    camera_enable_binding(0);
+    
     SDL_ShowCursor(SDL_DISABLE);
     
     /*demo setup*/
@@ -71,10 +76,11 @@ int main(int argc, char * argv[])
         //if (gfc_input_command_pressed("player_up")) { slog("goin up"); }
         entity_update_all();
         
+
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-            gf2d_sprite_draw_image(sprite,gfc_vector2d(0,0));
+            gf2d_sprite_draw_image(sprite,camera_get_offset());
             
             //stuff
             entity_draw_all();

@@ -7,6 +7,7 @@
 #include "gf2d_sprite.h"
 #include "gf2d_draw.h"
 
+#include "camera.h"
 #include "collision.h"
 
 typedef enum

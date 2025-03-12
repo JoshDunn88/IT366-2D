@@ -230,6 +230,11 @@ void entity_draw(Entity* self)
 		return;
 	}
 
+	GFC_Vector2D offset, position;
+	position = gfc_vector2d(0, 0);
+	offset = camera_get_offset();
+	gfc_vector2d_add(position, self->position, offset);
+
 	gf2d_sprite_draw(
 		self->sprite,
 		self->position,
@@ -245,9 +250,15 @@ void entity_draw(Entity* self)
 }
 
 void entity_draw_ui(Entity* self) {
+	if (!self) return;
+
+	GFC_Vector2D offset, position;
+	offset = camera_get_offset();
+	gfc_vector2d_add(position, self->position, offset);
+
 	if (self->collider)
 		gf2d_draw_shape(self->collider->shape, gfc_color8(0,255,0,200), self->position);
-	//might have to check for circle type because of offset
+	//might have to check for circle type because of shape offset
 }
 
 
