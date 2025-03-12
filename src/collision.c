@@ -98,9 +98,9 @@ void do_collision(Collider* self, Collider* other) {
 		if (self->layer != C_WORLD)
 			gfc_vector2d_add(self->position, self->position, self->shape.s.c.r + other->shape.s.c.r - distance);
 
-		//only do self
-		//if (other->layer != C_WORLD)
-			//gfc_vector2d_add(other->position, other->position, self->shape.s.s.r + other->shape.s.s.r - distance);
+		//only do self maybe?
+		if (other->layer != C_WORLD)
+			gfc_vector2d_add(other->position, other->position, self->shape.s.c.r + other->shape.s.c.r - distance);
 
 		return;
 	}
@@ -131,15 +131,15 @@ void do_collision(Collider* self, Collider* other) {
 					self->position.x -= (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
 				self->velocity.x /= 2;
 			}
-			/* do collision adjustment only for self?
+			//
 			else {
 				if (boxDistance.x > 0)
-					other->position.x -= (self->scale.x / 2 + other->scale.x / 2) - xDist + 0.001f;
+					other->position.x -= (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
 				else
-					other->position.x += (self->scale.x / 2 + other->scale.x / 2) - xDist + 0.001f;
+					other->position.x += (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
 				other->velocity.x = self->velocity.x;
 			}
-			*/
+			
 			return;
 		}
 		else if (max == &yDistRel) {
@@ -153,15 +153,15 @@ void do_collision(Collider* self, Collider* other) {
 
 				self->velocity.y /= 2;
 			}
-			/* do collision adjustment only for self?
+			// do collision adjustment only for self?
 			else {
 				if (boxDistance.y > 0)
-					other->position.y -= (self->scale.y / 2 + other->scale.y / 2) - yDist + 0.001f;
+					other->position.y -= (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
 				else
-					other->position.y += (self->scale.y / 2 + other->scale.y / 2) - yDist + 0.001f;
+					other->position.y += (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
 				other->velocity.y = self->velocity.y;
 			}
-			*/
+			
 			return;
 		}
 		

@@ -237,7 +237,7 @@ void entity_draw(Entity* self)
 
 	gf2d_sprite_draw(
 		self->sprite,
-		self->position,
+		position,
 		&self->scale,
 		&self->center,
 		&self->rotation,
@@ -256,8 +256,12 @@ void entity_draw_ui(Entity* self) {
 	offset = camera_get_offset();
 	gfc_vector2d_add(position, self->position, offset);
 
-	if (self->collider)
-		gf2d_draw_shape(self->collider->shape, gfc_color8(0,255,0,200), self->position);
+	if (self->collider) {
+		if (self->collider->layer == C_WORLD)
+			gf2d_draw_shape(self->collider->shape, gfc_color8(0, 255, 0, 200), position);
+		else
+			gf2d_draw_shape(self->collider->shape, gfc_color8(0, 255, 0, 200), position);
+	}
 	//might have to check for circle type because of shape offset
 }
 

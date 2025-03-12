@@ -107,8 +107,9 @@ void player_update(Entity* self)
     }
     if (gfc_input_command_pressed("jump"))
     {
-        slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
+        //slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
         slog("player position: %f, %f", self->position.x, self->position.y);
+        slog("camera position: %f, %f", camera_get_position().x, camera_get_position().y);
     }
 
     //slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
@@ -129,7 +130,7 @@ void player_draw(Entity* self) {
 
     gf2d_sprite_draw(
         self->sprite,
-        self->position,
+        position,
         &self->scale,
         &self->center,
         &self->rotation,

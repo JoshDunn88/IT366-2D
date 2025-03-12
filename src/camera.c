@@ -18,8 +18,8 @@ void camera_set_bounds(GFC_Rect bounds) {
 	gfc_rect_copy(camera.bounds, bounds);
 }
 
-void camera_set_size(GFC_Vector2D bounds) {
-	gfc_vector2d_copy(camera.bounds, bounds);
+void camera_set_size(GFC_Vector2D size) {
+	gfc_vector2d_copy(camera.size, size);
 }
 
 void camera_enable_binding(Uint8 toBind) {
@@ -56,9 +56,11 @@ void camera_set_position(GFC_Vector2D position) {
 
 void camera_center_on(GFC_Vector2D target) {
 	GFC_Vector2D position;
-	slog("target x: %f, target y: %f", target.x, target.y);
-	position.x = target.x - (camera.size.x * 0.5);
-	position.y = target.y - (camera.size.y * 0.5);
+	//slog("target x: %f, target y: %f", target.x, target.y);
+	//slog("size x: %f, size y: %f", camera.size.x, camera.size.y);
+	position.x = target.x - (camera.size.x * 0.5f);
+	position.y = target.y - (camera.size.y * 0.5f);
+	//slog("position x: %f, position y: %f", position.x, position.y);
 	camera_set_position( position);
 	if (camera.bindCamera) camera_apply_bounds();
 }

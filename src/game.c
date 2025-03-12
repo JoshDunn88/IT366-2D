@@ -8,14 +8,15 @@
 #include "player.h"
 #include "enemy.h"
 #include "font.h"
+#include "world.h"
 
 int main(int argc, char * argv[])
 {
     /*variable declarations*/
     int done = 0;
     const Uint8 * keys;
-    Sprite* sprite;
-    Entity* mouseEnt, *player, *enemy;
+    Sprite* sprite, * mousesprite;
+    Entity *player, *enemy, *floor, *wall;
     
     int mx,my;
     float mf = 0;
@@ -42,7 +43,7 @@ int main(int argc, char * argv[])
     font_init();
 
     //todo make world object and do cam shit in there
-    camera_set_bounds(gfc_rect(0, 0, 2560, 1440));
+    camera_set_bounds(gfc_rect(0, 0, 5000, 2000));
     camera_set_size(gfc_vector2d(1200, 720));
     //camera_apply_bounds();
     camera_enable_binding(0);
@@ -51,12 +52,15 @@ int main(int argc, char * argv[])
     
     /*demo setup*/
     sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
-    mouseEnt = entity_new();
     player = player_new();
+    floor = world_new_obstacle();
+    wall = world_new_obstacle();
+    wall->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(50, 200));
+    wall->collider->position = gfc_vector2d(300,200);
     slog("player made");
     enemy = enemy_new();
     slog("enemy made");
-    mouseEnt->sprite = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
+    mousesprite = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
 
     slog("press [escape] to quit");
     /*main game loop*/
@@ -69,9 +73,6 @@ int main(int argc, char * argv[])
         SDL_GetMouseState(&mx,&my);
         mf+=0.1;
         if (mf >= 16.0)mf = 0;
-        mouseEnt->position = gfc_vector2d(mx, my);
-        mouseEnt->color_shift = mouseGFC_Color;
-        mouseEnt->frame = mf;
         //slog("mouse position: %f, %f", mouseEnt->position.x, mouseEnt->position.y);
         //if (gfc_input_command_pressed("player_up")) { slog("goin up"); }
         entity_update_all();
@@ -80,7 +81,7 @@ int main(int argc, char * argv[])
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-            gf2d_sprite_draw_image(sprite,camera_get_offset());
+            gf2d_sprite_draw_image(sprite, gfc_vector2d(0, 0));
             
             //stuff
             entity_draw_all();
@@ -88,6 +89,16 @@ int main(int argc, char * argv[])
             //UI elements last
             font_draw_text("press ESCAPE to quit\n is fairly neat", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
             draw_hud(player);
+
+            gf2d_sprite_draw(
+                mousesprite,
+                gfc_vector2d(mx, my),
+                NULL,
+                NULL,
+                NULL,
+                NULL,
+                &mouseGFC_Color,
+                (int)mf);
 
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
 
