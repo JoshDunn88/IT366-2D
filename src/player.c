@@ -1,5 +1,6 @@
 #include "simple_logger.h"
 
+
 #include "player.h"
 
 
@@ -59,45 +60,50 @@ void player_update(Entity* self)
 {
     
     if (!self) return;
-
+    if (!self->collider) return;
+    
+    //slog("left state %i", gfc_input_command_get_state("player_left"));
+    //slog("right state %i", gfc_input_command_get_state("player_right"));
+    //slog("down state %i", gfc_input_command_get_state("player_down"));
+   // slog("up state %i", gfc_input_command_get_state("player_up"));
     if (gfc_input_command_down("player_left"))
     {
-        //slog("player moved left");
+        //slog("player pressed left");
         self->flip.x = 1;
-        self->collider->position.x += -5;
+        self->collider->velocity.x = -5;
     }
-    else if (gfc_input_command_released("player_left"))
+    if (gfc_input_command_released("player_left"))
     {
         //slog("player released left");
-        //self->collider->position.x += 0;
+        self->collider->velocity.x = 0;
     }
 
     if (gfc_input_command_down("player_right"))
     {
         self->flip.x =0;
-        self->collider->position.x += 5;
+        self->collider->velocity.x = 5;
     }
-    else if (gfc_input_command_released("player_right"))
+    if (gfc_input_command_released("player_right"))
     {
-        //self->collider->position.x += 0;
+        self->collider->velocity.x = 0;
     }
 
     if (gfc_input_command_down("player_up"))
     {
-        self->collider->position.y += -5;
+        self->collider->velocity.y = -5;
     }
-    else if (gfc_input_command_released("player_up"))
+    if (gfc_input_command_released("player_up"))
     {
-        //self->collider->position.y;
+        self->collider->velocity.y = 0;
     }
 
     if (gfc_input_command_down("player_down"))
     {
-        self->collider->position.y += 5;
+        self->collider->velocity.y = 5;
     }
-    else if (gfc_input_command_released("player_down"))
+    if (gfc_input_command_released("player_down"))
     {
-        //self->collider->position.y;
+        self->collider->velocity.y = 0;
     }
 
     //slog("player velocity: %f, %f", self->velocity.x, self->velocity.y);
@@ -124,8 +130,8 @@ void draw_hud(Entity* self) {
     //slog("health %i, %i", dat->health, *healthVal);
     //slog("food %i, %i", dat->prey_eaten, *foodVal);
     //slog("speed %f, %f", gfc_vector3d_magnitude(self->collider->velocity), *speed);
-    //gf2d_font_draw_line_tag(healthVal, FT_H1, GFC_COLOR_GREEN, gfc_vector2d(300, 10));
-    //gf2d_font_draw_line_tag(speed, FT_H1, GFC_COLOR_BLUE, gfc_vector2d(900, 10));
+    font_draw_text(healthVal, FS_large, GFC_COLOR_DARKGREEN, gfc_vector2d(400, 10));
+    font_draw_text(speed, FS_large, GFC_COLOR_BLUE, gfc_vector2d(900, 10));
 }
 void player_free(void* data)
 {

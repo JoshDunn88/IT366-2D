@@ -57,8 +57,8 @@ int main(int argc, char * argv[])
     /*main game loop*/
     while(!done)
     {
-        SDL_PumpEvents();   // update SDL's internal event structures
-        keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
+        //SDL_PumpEvents();   // update SDL's internal event structures
+        //keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
         gfc_input_update();
         /*update things here*/
         SDL_GetMouseState(&mx,&my);
@@ -68,8 +68,9 @@ int main(int argc, char * argv[])
         mouseEnt->color_shift = mouseGFC_Color;
         mouseEnt->frame = mf;
         //slog("mouse position: %f, %f", mouseEnt->position.x, mouseEnt->position.y);
+        //if (gfc_input_command_pressed("player_up")) { slog("goin up"); }
         entity_update_all();
-
+        
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
@@ -79,11 +80,13 @@ int main(int argc, char * argv[])
             entity_draw_all();
 
             //UI elements last
-            font_draw_text("press ESCAPE to quit\n is fairly neat", FS_large, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
+            font_draw_text("press ESCAPE to quit\n is fairly neat", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
+            draw_hud(player);
 
         gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
 
-        if (gfc_input_command_down("exit")) {done = 1;}
+        if (gfc_input_command_pressed("exit")) {done = 1;}
+        
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
     slog("---==== END ====---");
