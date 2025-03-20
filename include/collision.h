@@ -11,7 +11,9 @@ typedef enum
 	C_DEFAULT,
 	C_PLAYER,
 	C_ENEMY,
-	C_WORLD
+	C_ITEM,
+	C_WORLD,
+	C_MAX
 }C_Layer;
 
 typedef struct Collider_S
@@ -27,10 +29,11 @@ typedef struct Collider_S
 
 	C_Layer			layer;
 	Uint8			isTrigger;	//collide or trigger activation
+
 	Uint8			triggerActive;	//is something in trigger
 
 	//behavior
-	void (*onTriggerEnter) (struct Entity* self, struct Entity* other); //called when another collider enters the trigger
+	void (*onTriggerEnter) (struct Collider_S* self, struct Collider_S* other); //called when another collider enters the trigger
 	void (*onTriggerExit) (struct Collider_S* self, struct Collider_S* other); //called when another collider exits the trigger probably don't need this, might for hiding bushes though
 	void (*whileTrigger) (struct Collider_S* self, struct Collider_S* other); //called while in trigger after entry before exit
 

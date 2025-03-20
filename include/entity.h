@@ -14,7 +14,9 @@ typedef enum
 {
 	E_DEFAULT,
 	E_PLAYER,
-	E_ENEMY
+	E_ENEMY,
+	E_ITEM,
+	E_MAX
 }E_Type;
 
 typedef struct Entity_S

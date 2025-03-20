@@ -10,13 +10,15 @@
 #include "font.h"
 #include "world.h"
 
+#include "item.h"
+
 int main(int argc, char * argv[])
 {
     /*variable declarations*/
     int done = 0;
     const Uint8 * keys;
     Sprite* sprite, * mousesprite;
-    Entity *player, *enemy, *floor, *wall;
+    Entity *player, *enemy, *floor, *wall, *bev;
     
     int mx,my;
     float mf = 0;
@@ -54,6 +56,7 @@ int main(int argc, char * argv[])
     sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
     player = player_new();
     floor = world_new_obstacle();
+    bev = item_new();
     //wall = world_new_obstacle();
     //wall->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(50, 200)); //not how this shit works man 
     //wall->collider->position = gfc_vector2d(300,200);
@@ -73,6 +76,7 @@ int main(int argc, char * argv[])
         if (mf >= 16.0)mf = 0;
         //slog("mouse position: %f, %f", mouseEnt->position.x, mouseEnt->position.y);
         //if (gfc_input_command_pressed("player_up")) { slog("goin up"); }
+        entity_think_all();
         entity_update_all();
         
 

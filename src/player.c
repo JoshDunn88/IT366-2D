@@ -62,6 +62,7 @@ void player_think(Entity* self)
 
     if (dat->sloshed) {
         move_speed = gfc_random() * dat->max_speed;
+        slog("am sloshed");
     }
     else {
         move_speed = dat->max_speed;
@@ -73,7 +74,7 @@ void player_update(Entity* self)
     if (!self) return;
     if (!self->collider) return;
     if (!self->data) return;
-    Player_Data* dat = (struct Player_Data*)(self->data);
+    //Player_Data* dat = (struct Player_Data*)(self->data);
     //float move_speed = dat->max_speed;
     //slog("left state %i", gfc_input_command_get_state("player_left"));
     //slog("right state %i", gfc_input_command_get_state("player_right"));

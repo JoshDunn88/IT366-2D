@@ -4,7 +4,9 @@
 //#include "gfc_input.h"
 
 #include "font.h"
-#include "entity.h"
+//#include "entity.h"
+
+#include "player.h"
 
 typedef enum
 {
@@ -38,5 +40,7 @@ void item_think(Entity* self);
 void item_update(Entity* self);
 void item_draw(Entity* self);
 void item_free(void* data);
+
+void item_triggered(Collider* self, Collider* other);
 
 #endif
