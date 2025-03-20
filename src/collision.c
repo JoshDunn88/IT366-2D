@@ -108,59 +108,85 @@ void do_collision(Collider* self, Collider* other) {
 	//THIS IS BOX 
 	//the concept of minimum overlap came from https://youtu.be/oOEnWQZIePs?si=ZMblmzP0ep0f-bJT
 	if (self->shape.type == ST_RECT && other->shape.type == ST_RECT) {
-		GFC_Vector2D boxDistance;
+		GFC_Vector2D boxDistance = { 0 };
+		float xOverlap, yOverlap;
+		Uint8 left, above;
+
+		float slop = 0.001f;
+
 		gfc_vector2d_sub(boxDistance, self->position, other->position);
 
-		float xDist = SDL_fabsf(boxDistance.x);
-		float yDist = SDL_fabsf(boxDistance.y);
-		float xDistRel = xDist / (self->shape.s.r.w / 2 + other->shape.s.r.w / 2);
-		float yDistRel = yDist / (self->shape.s.r.h / 2 + other->shape.s.r.h / 2);
+		if (boxDistance.x < 0) {
+			xOverlap = self->shape.s.r.w - SDL_fabsf(boxDistance.x);
+			left = true;
+		}
+		else {
+			xOverlap = other->shape.s.r.w - SDL_fabsf(boxDistance.x);
+			left = false;
+		}
+		
+		if (boxDistance.y < 0) {
+			yOverlap = self->shape.s.r.h - SDL_fabsf(boxDistance.y);
+			above = true;
+		}
+		else {
+			yOverlap = other->shape.s.r.h - SDL_fabsf(boxDistance.y);
+			above = false;
+		}
+
+		slog("overlaps: x %f, y %f", xOverlap, yOverlap);
+		float xDistRel = xOverlap / (self->shape.s.r.w);
+		float yDistRel = yOverlap / (self->shape.s.r.h);
 		//slog("dists: x %f, y %f", xDist, yDist);
 		float* max;
 		max = &xDistRel;
 		if (yDistRel > *max) max = &yDistRel;
 		//slog("max %f", *max);
 
-		if (max == &xDistRel) {
+		if (max == &yDistRel) {
 			//slog("do x");
 			if (self->layer != C_WORLD) {
 
-				if (boxDistance.x > 0)
-					self->position.x += (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
+				if (left)
+					self->position.x -= xOverlap + slop;
 				else
-					self->position.x -= (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
+					self->position.x += xOverlap + slop;
 				self->velocity.x /= 2;
 			}
-			//
-			else {
+			
+			/*if (other->layer != C_WORLD) {
+				self->velocity.x = 0;
+				
 				if (boxDistance.x > 0)
 					other->position.x -= (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
 				else
 					other->position.x += (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
 				other->velocity.x = self->velocity.x;
-			}
+			}  */
 			
 			return;
 		}
-		else if (max == &yDistRel) {
+		else if (max == &xDistRel) {
 			//slog("do y");
 			if (self->layer != C_WORLD) {
 
-				if (boxDistance.y > 0)
-					self->position.y += (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
+				if (above)
+					self->position.y -= yOverlap + slop;
 				else
-					self->position.y -= (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
+					self->position.y += yOverlap + slop;
 
 				self->velocity.y /= 2;
 			}
-			// do collision adjustment only for self?
-			else {
+			// do collision adjustment only for self ?
+			/*if (other->layer != C_WORLD) {
+				self->velocity.y =  0;
+				
 				if (boxDistance.y > 0)
 					other->position.y -= (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
 				else
 					other->position.y += (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
 				other->velocity.y = self->velocity.y;
-			}
+			} */
 			
 			return;
 		}

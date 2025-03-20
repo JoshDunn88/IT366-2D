@@ -54,11 +54,11 @@ int main(int argc, char * argv[])
     sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
     player = player_new();
     floor = world_new_obstacle();
-    wall = world_new_obstacle();
-    wall->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(50, 200));
-    wall->collider->position = gfc_vector2d(300,200);
+    //wall = world_new_obstacle();
+    //wall->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(50, 200)); //not how this shit works man 
+    //wall->collider->position = gfc_vector2d(300,200);
     slog("player made");
-    enemy = enemy_new();
+    //enemy = enemy_new();
     slog("enemy made");
     mousesprite = gf2d_sprite_load_all("images/pointer.png",32,32,16,0);
 
@@ -66,8 +66,6 @@ int main(int argc, char * argv[])
     /*main game loop*/
     while(!done)
     {
-        //SDL_PumpEvents();   // update SDL's internal event structures
-        //keys = SDL_GetKeyboardState(NULL); // get the keyboard state for this frame
         gfc_input_update();
         /*update things here*/
         SDL_GetMouseState(&mx,&my);

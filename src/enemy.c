@@ -36,7 +36,7 @@ Entity* enemy_new()
     self->scale = gfc_vector2d(5, 5);
     self->sprite = gf2d_sprite_load_image("images/ghoul.png");
     self->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d_multiply(gfc_vector2d(self->sprite->frame_w, self->sprite->frame_h), self->scale));
-    self->collider->position = gfc_vector2d(200, 100);
+    self->collider->position = gfc_vector2d(100, 100);
     self->collider->isTrigger = false;
     self->collider->layer = C_ENEMY;
     self->color_shift = gfc_color(1, 0, 0, 1);
@@ -61,13 +61,13 @@ void enemy_update(Entity* self)
     Entity* player = get_player();
 
     if (player->collider->position.x > self->collider->position.x)
-        self->collider->position.x += 1;
+        self->collider->velocity.x = 1;
     if (player->collider->position.x < self->collider->position.x)
-        self->collider->position.x += -1;
+        self->collider->velocity.x = -1;
     if (player->collider->position.y > self->collider->position.y)
-        self->collider->position.y += 1;
+        self->collider->velocity.y = 1;
     if (player->collider->position.y < self->collider->position.y)
-        self->collider->position.y += -1;
+        self->collider->velocity.y = -1;
     if (player->collider->position.y == self->collider->position.y && player->collider->position.x == self->collider->position.x) {
         self->alive = false;
         slog("killed enemy");
