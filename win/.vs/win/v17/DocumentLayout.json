@@ -3,31 +3,37 @@
   "WorkspaceRootPath": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\win\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\item.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\enemy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\collision.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\entity.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\world.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\enemy.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\player.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\collision.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\entity.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\collision.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\item.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\player.h||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\world.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{F8324869-CA31-4DD2-B980-53917A2CAC00}|win.vcxproj|C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\game.c||{D0E1A5C6-B359-4E41-9B60-3365922C2A22}"
     }
   ],
   "DocumentGroupContainers": [
@@ -37,37 +43,89 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 8,
+              "Title": "item.c",
+              "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\item.c",
+              "RelativeDocumentMoniker": "..\\src\\item.c",
+              "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\item.c",
+              "RelativeToolTip": "..\\src\\item.c",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-03-20T01:51:34.311Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "item.h",
+              "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\item.h",
+              "RelativeDocumentMoniker": "..\\include\\item.h",
+              "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\item.h",
+              "RelativeToolTip": "..\\include\\item.h",
+              "ViewState": "AgIAABIAAAAAAAAAAAAAABwAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-20T01:51:13.876Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
               "Title": "player.c",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\player.c",
               "RelativeDocumentMoniker": "..\\src\\player.c",
               "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\player.c",
               "RelativeToolTip": "..\\src\\player.c",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAGkAAAAnAAAAAAAAAA==",
+              "ViewState": "AgIAADYAAAAAAAAAAAAAAEUAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-03-20T00:12:42.199Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 2,
+              "Title": "player.h",
+              "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\player.h",
+              "RelativeDocumentMoniker": "..\\include\\player.h",
+              "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\player.h",
+              "RelativeToolTip": "..\\include\\player.h",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAQAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
+              "WhenOpened": "2025-03-12T12:57:40.649Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
               "Title": "entity.h",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\entity.h",
               "RelativeDocumentMoniker": "..\\include\\entity.h",
               "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\entity.h",
               "RelativeToolTip": "..\\include\\entity.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
               "WhenOpened": "2025-03-20T00:07:17.581Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 5,
+              "Title": "entity.c",
+              "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\entity.c",
+              "RelativeDocumentMoniker": "..\\src\\entity.c",
+              "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\entity.c",
+              "RelativeToolTip": "..\\src\\entity.c",
+              "ViewState": "AgIAAD8AAAAAAAAAAAAAAEMAAAAOAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
+              "WhenOpened": "2025-03-12T13:57:04.2Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "world.c",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\world.c",
               "RelativeDocumentMoniker": "..\\src\\world.c",
@@ -75,38 +133,24 @@
               "RelativeToolTip": "..\\src\\world.c",
               "ViewState": "AgIAABsAAAAAAAAAAAAAAB4AAAAfAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-03-12T13:58:25.497Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-12T13:58:25.497Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "entity.c",
-              "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\entity.c",
-              "RelativeDocumentMoniker": "..\\src\\entity.c",
-              "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\entity.c",
-              "RelativeToolTip": "..\\src\\entity.c",
-              "ViewState": "AgIAAFoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-03-12T13:57:04.2Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 3,
               "Title": "enemy.c",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\enemy.c",
               "RelativeDocumentMoniker": "..\\src\\enemy.c",
               "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\enemy.c",
               "RelativeToolTip": "..\\src\\enemy.c",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAADkAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADkAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-03-12T13:43:44.798Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 10,
               "Title": "game.c",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\game.c",
               "RelativeDocumentMoniker": "..\\src\\game.c",
@@ -114,45 +158,33 @@
               "RelativeToolTip": "..\\src\\game.c",
               "ViewState": "AgIAAC0AAAAAAAAAAAAAADMAAAAEAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
-              "WhenOpened": "2025-03-12T13:42:49.106Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-03-12T13:42:49.106Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "collision.c",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\collision.c",
               "RelativeDocumentMoniker": "..\\src\\collision.c",
               "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\src\\collision.c",
               "RelativeToolTip": "..\\src\\collision.c",
-              "ViewState": "AgIAAGAAAAAAAAAAAAAAAHMAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAQwE8AAAARAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000423|",
               "WhenOpened": "2025-03-12T13:39:55.327Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 6,
               "Title": "collision.h",
               "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\collision.h",
               "RelativeDocumentMoniker": "..\\include\\collision.h",
               "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\collision.h",
               "RelativeToolTip": "..\\include\\collision.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAZAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-12T13:39:48.698Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "player.h",
-              "DocumentMoniker": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\player.h",
-              "RelativeDocumentMoniker": "..\\include\\player.h",
-              "ToolTip": "C:\\Users\\JoshD\\source\\repos\\IT366-2D\\include\\player.h",
-              "RelativeToolTip": "..\\include\\player.h",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000680|",
-              "WhenOpened": "2025-03-12T12:57:40.649Z"
+              "WhenOpened": "2025-03-12T13:39:48.698Z",
+              "EditorCaption": ""
             }
           ]
         }

@@ -10,6 +10,8 @@
 typedef struct Player_Data_S
 {
 	int			health;
+	float		max_speed;
+	Uint8		sloshed;
 }Player_Data;
 
 /**

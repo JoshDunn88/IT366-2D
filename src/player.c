@@ -8,6 +8,7 @@ void player_think(Entity* self);
 void player_update(Entity* self);
 void player_free(void* data);
 
+float move_speed = 0;
 
 Player_Data* player_data_new() {
     Player_Data* data = malloc(sizeof(Player_Data));
@@ -17,6 +18,9 @@ Player_Data* player_data_new() {
         return NULL;
     }
     data->health = 100;
+    data->max_speed = 5;
+    move_speed = 5; //idk why man ill better this later nvm I know why its for resets lol
+    data->sloshed = false;
     return data;
 }
 
@@ -54,14 +58,23 @@ Entity* player_new()
 
 void player_think(Entity* self)
 {
-    
+    Player_Data* dat = (struct Player_Data*)(self->data);
+
+    if (dat->sloshed) {
+        move_speed = gfc_random() * dat->max_speed;
+    }
+    else {
+        move_speed = dat->max_speed;
+    }
 }
 void player_update(Entity* self)
 {
     
     if (!self) return;
     if (!self->collider) return;
-    
+    if (!self->data) return;
+    Player_Data* dat = (struct Player_Data*)(self->data);
+    //float move_speed = dat->max_speed;
     //slog("left state %i", gfc_input_command_get_state("player_left"));
     //slog("right state %i", gfc_input_command_get_state("player_right"));
     //slog("down state %i", gfc_input_command_get_state("player_down"));
@@ -70,7 +83,7 @@ void player_update(Entity* self)
     {
         //slog("player pressed left");
         self->flip.x = 1;
-        self->collider->velocity.x = -5;
+        self->collider->velocity.x = -move_speed;
     }
     if (gfc_input_command_released("player_left"))
     {
@@ -81,7 +94,7 @@ void player_update(Entity* self)
     if (gfc_input_command_down("player_right"))
     {
         self->flip.x =0;
-        self->collider->velocity.x = 5;
+        self->collider->velocity.x = move_speed;
     }
     if (gfc_input_command_released("player_right"))
     {
@@ -90,7 +103,7 @@ void player_update(Entity* self)
 
     if (gfc_input_command_down("player_up"))
     {
-        self->collider->velocity.y = -5;
+        self->collider->velocity.y = -move_speed;
     }
     if (gfc_input_command_released("player_up"))
     {
@@ -99,7 +112,7 @@ void player_update(Entity* self)
 
     if (gfc_input_command_down("player_down"))
     {
-        self->collider->velocity.y = 5;
+        self->collider->velocity.y = move_speed;
     }
     if (gfc_input_command_released("player_down"))
     {

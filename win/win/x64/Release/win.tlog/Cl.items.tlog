@@ -35,6 +35,7 @@ C:\Users\JoshD\source\repos\IT366-2D\src\game.c;C:\Users\JoshD\source\repos\IT36
 C:\Users\JoshD\source\repos\IT366-2D\src\gf2d_draw.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\gf2d_draw.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\gf2d_graphics.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\gf2d_graphics.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\gf2d_sprite.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\gf2d_sprite.obj
+C:\Users\JoshD\source\repos\IT366-2D\src\item.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\item.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\physics.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\physics.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\player.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\player.obj
 C:\Users\JoshD\source\repos\IT366-2D\src\time.c;C:\Users\JoshD\source\repos\IT366-2D\win\win\x64\Release\time.obj

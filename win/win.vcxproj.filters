@@ -138,6 +138,12 @@
     <ClInclude Include="..\include\camera.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\include\world.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\include\item.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\src\game.c">
@@ -258,6 +264,12 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\src\camera.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\world.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\item.c">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
