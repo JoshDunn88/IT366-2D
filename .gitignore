@@ -58,3 +58,5 @@ gf2d
 *.log
 
 makefile.dep
+/win/.vs/win/v17/.suo
+/win/.vs/win/v17/Browse.VC.db
