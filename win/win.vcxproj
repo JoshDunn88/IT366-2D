@@ -177,6 +177,7 @@
     <ClInclude Include="..\include\gf2d_draw.h" />
     <ClInclude Include="..\include\gf2d_graphics.h" />
     <ClInclude Include="..\include\gf2d_sprite.h" />
+    <ClInclude Include="..\include\item.h" />
     <ClInclude Include="..\include\player.h" />
     <ClInclude Include="..\include\world.h" />
   </ItemGroup>
@@ -218,6 +219,7 @@
     <ClCompile Include="..\src\gf2d_draw.c" />
     <ClCompile Include="..\src\gf2d_graphics.c" />
     <ClCompile Include="..\src\gf2d_sprite.c" />
+    <ClCompile Include="..\src\item.c" />
     <ClCompile Include="..\src\player.c" />
     <ClCompile Include="..\src\world.c" />
   </ItemGroup>
