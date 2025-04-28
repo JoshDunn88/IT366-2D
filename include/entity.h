@@ -5,12 +5,18 @@
 #include "gfc_text.h"
 #include "gfc_vector.h"
 #include "gf2d_sprite.h"
+#include "gf2d_draw.h"
+
+#include "camera.h"
+#include "collision.h"
 
 typedef enum
 {
 	E_DEFAULT,
 	E_PLAYER,
-	E_ENEMY
+	E_ENEMY,
+	E_ITEM,
+	E_MAX
 }E_Type;
 
 typedef struct Entity_S
@@ -18,7 +24,7 @@ typedef struct Entity_S
 	//data
 	GFC_TextLine	name;
 	E_Type			type;
-	Sprite*			sprite; // entity's sprite if it has one
+	Sprite* sprite; // entity's sprite if it has one
 	GFC_Color		color_shift;
 	GFC_Vector2D	center; //for scaling in draw?
 	GFC_Vector2D	scale; //for drawing only
@@ -29,7 +35,9 @@ typedef struct Entity_S
 	GFC_Vector2D	position;
 	GFC_Vector2D	velocity;
 	GFC_Vector2D	acceleration; // maybe don't need for now
-	
+
+	Collider* collider;
+
 	Uint8			_inuse;	//flag for memory management
 	Uint8			alive;	//flag for life
 
@@ -92,6 +100,13 @@ void entity_free(Entity* self);
 
 void entity_draw(Entity* self);
 
+/*
+ * @brief draw entity specific ui like bounding box etc, maybe don't need this with custom draws but this way no weird overlap
+ * @param self the entity to draw for
+
+*/
+void entity_draw_ui(Entity* self);
+
 void entity_think(Entity* self);
 
 void entity_update(Entity* self);
@@ -103,4 +118,7 @@ void entity_update(Entity* self);
 */
 Entity* get_player();
 
+void check_collisions(Collider* self);
+
+Entity* entity_get_by_collider(Collider* self);
 #endif
