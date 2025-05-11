@@ -14,7 +14,8 @@ static GameManager _game_manager = { 0 }; //initialize local game manager
 
 void game_init() 
 {
-    _game_manager.game_mode = G_MENU;
+    //switch this to menu once menu in
+    _game_manager.game_mode = G_MAIN;
     _game_manager.done = false;
 
     /*program initializtion*/
@@ -117,8 +118,16 @@ int main(int argc, char* argv[])
         //mf += 0.1;
         //if (mf >= 16.0)mf = 0;
         //slog("mouse position: %f, %f", mx, my);
-
-        main_update();
+        switch (_game_manager.game_mode) 
+        {
+            case(G_MAIN):
+                main_update();
+                break;
+            default:
+                //probably just exit if somehow no game mode
+                break;
+        }
+        
 
         //refactor this later once background is in level, so that all gf2d is in draw functions too
         gf2d_graphics_clear_screen();// clears drawing buffers

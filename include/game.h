@@ -43,5 +43,6 @@ void menu_draw();
 void sim_draw();
 void main_draw();
 
+void switch_mode(G_Mode next_mode);
 
 #endif
