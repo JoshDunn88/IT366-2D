@@ -62,7 +62,7 @@ void player_think(Entity* self)
 
     if (dat->sloshed) {
         move_speed = gfc_random() * dat->max_speed;
-        slog("am sloshed");
+        slog("I am sloshed");
     }
     else {
         move_speed = dat->max_speed;
