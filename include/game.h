@@ -9,6 +9,7 @@
 #include "font.h"
 #include "world.h"
 #include "item.h"
+#include "level.h"
 
 typedef enum
 {
@@ -21,9 +22,9 @@ typedef enum
 typedef struct Game_Manager_S
 {
 	Entity*			game_player;
+	Level			level_data;
 	G_Mode			game_mode;
 	Uint8			done;
-
 
 }GameManager;
 
@@ -44,5 +45,7 @@ void sim_draw();
 void main_draw();
 
 void switch_mode(G_Mode next_mode);
+
+void change_level(const char* filename);
 
 #endif

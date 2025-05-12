@@ -17,6 +17,7 @@ void game_init()
     //switch this to menu once menu in
     _game_manager.game_mode = G_MAIN;
     _game_manager.done = false;
+    //_game_manager.level_data.level_background = NULL; //this may break
 
     /*program initializtion*/
     init_logger("gf2d.log", 0);
@@ -64,7 +65,9 @@ void main_init() {
     //enemy = enemy_new();
     slog("enemy made");
 
+    //game manager setup
     _game_manager.game_player = player;
+    _game_manager.level_data = load_level_config_from_file("config/level1.cfg");
 }
 
 
@@ -85,6 +88,12 @@ void main_draw()
 }
 
 
+void change_level(const char* filename)
+{
+    clear_level_data(_game_manager.level_data);
+    //save player data here
+    _game_manager.level_data = load_level_config_from_file(filename);
+}
 
 
 int main(int argc, char* argv[])
@@ -100,11 +109,11 @@ int main(int argc, char* argv[])
     //GFC_Color mouseGFC_Color = gfc_color8(255, 100, 255, 200);
 
     game_init();
-    main_init();
+    main_init(); //menu later
 
     SDL_ShowCursor(SDL_DISABLE);
 
-    sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
+    //sprite = gf2d_sprite_load_image("images/backgrounds/wafflehouse.png");
    
     //mousesprite = gf2d_sprite_load_all("images/pointer.png", 32, 32, 16, 0);
 
@@ -133,7 +142,7 @@ int main(int argc, char* argv[])
         gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
             //backgrounds drawn first
-        gf2d_sprite_draw_image(sprite, gfc_vector2d(0, 0));
+        gf2d_sprite_draw_image(_game_manager.level_data.level_background, gfc_vector2d(0, 0));
 
         
         main_draw();
