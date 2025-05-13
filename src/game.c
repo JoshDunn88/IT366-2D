@@ -87,6 +87,9 @@ void sim_init()
 
 void game_update() 
 {
+    //moved input reading to here
+    gfc_input_update();
+
     if (gfc_input_command_released("exit"))
     {
         if (_game_manager.game_mode == G_MENU) 
@@ -197,12 +200,9 @@ int main(int argc, char* argv[])
     /*inits*/
     game_init();
     menu_init(); 
-    slog("press [escape] to quit");
 
     while (!_game_manager.done)
     {
-        gfc_input_update();
-
         game_update();
 
         switch (_game_manager.game_mode) 
@@ -220,8 +220,8 @@ int main(int argc, char* argv[])
                 sim_draw();
                 break;
             default:
-                //probably just exit if somehow no game mode
-                break;
+                slog("somehow you have no game mode, goodbye");
+                exit(0);
         }
         //slog("Rendering at %f FPS",gf2d_graphics_get_frames_per_second());
     }
