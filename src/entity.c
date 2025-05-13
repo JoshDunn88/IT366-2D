@@ -104,6 +104,11 @@ Entity* entity_get_by_collider(Collider* self) {
 
 void entity_clear_all(Entity* ignore)
 {
+	if (!_entity_manager.entityList)
+	{
+		slog("no entity list to clear");
+		return;
+	}
 
 	int i;
 	for (i = 0; i < _entity_manager.entityMax; i++) {
@@ -118,6 +123,12 @@ void entity_clear_all(Entity* ignore)
 
 void entity_think_all()
 {
+	if (!_entity_manager.entityList)
+	{
+		slog("no entity list to think");
+		return;
+	}
+
 	int i;
 	for (int i = 0; i < _entity_manager.entityMax; i++) {
 		if (!_entity_manager.entityList[i]._inuse) continue;
@@ -129,6 +140,12 @@ void entity_think_all()
 
 void entity_update_all()
 {
+	if (!_entity_manager.entityList)
+	{
+		slog("no entity list to update");
+		return;
+	}
+
 	int i;
 	for (int i = 0; i < _entity_manager.entityMax; i++) {
 		if (!_entity_manager.entityList[i]._inuse) continue;
@@ -139,6 +156,12 @@ void entity_update_all()
 
 void entity_draw_all()
 {
+	if (!_entity_manager.entityList)
+	{
+		slog("no entity list to draw");
+		return;
+	}
+
 	int i;
 	for (i = 0; i < _entity_manager.entityMax; i++) {
 		if (!_entity_manager.entityList[i]._inuse) continue;

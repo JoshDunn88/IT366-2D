@@ -22,6 +22,7 @@ typedef enum
 typedef struct Game_Manager_S
 {
 	Entity*			game_player;
+	Sprite*			menu_background;
 	Level			level_data;
 	G_Mode			game_mode;
 	Uint8			done;
