@@ -10,7 +10,6 @@ Collider* collider_setup(GFC_Shape shape) {
 		return NULL;
 	}
 
-
 	self->velocity = gfc_vector2d(0, 0);
 	//change this to account for other prim types later
 	self->shape = shape;
@@ -24,7 +23,6 @@ Collider* collider_setup(GFC_Shape shape) {
 
 	//self->offset = gfc_vector3d(0, 0, 0);
 	//self->gravity = 0;
-
 	//self->scale = gfc_vector3d(1, 1, 1);
 	self->isTrigger = 0;
 	self->triggerActive = 0;
@@ -50,8 +48,7 @@ void collider_free(Collider* self) {
 	//expand when adding sector list and other stuff
 }
 
-//TODO make this predictive with velocity not current position?
-Uint8 check_collision(Collider* self, Collider* other) { //, GFC_Vector2D self_vel, GFC_Vector2D other_vel
+Uint8 check_collision(Collider* self, Collider* other) { 
 	if (!self || !other) return 0;
 	if (self == other) {
 		//slog("no thats me");
@@ -64,7 +61,6 @@ Uint8 check_collision(Collider* self, Collider* other) { //, GFC_Vector2D self_v
 		}
 		if (other->shape.type == ST_CIRCLE)
 			return 0; //not implemented
-		//if (otherother->primitive.type == GPT_PLANE)
 	}
 
 	if (self->shape.type == ST_CIRCLE) { // && Layer!= LAYER
@@ -73,17 +69,12 @@ Uint8 check_collision(Collider* self, Collider* other) { //, GFC_Vector2D self_v
 		}
 		if (other->shape.type == ST_CIRCLE)
 			return predictive_circle_overlap(self->shape.s.c, other->shape.s.c, self->position, other->position); //todo make predictive
-		//return gfc_box_overlap(self->primitive.s.b, other->primitive.s.b); not implemented yet
 	}
 	return 0;
 }
 void do_collision(Collider* self, Collider* other) {
 	if (!self || !other) return;
 
-	//special cases
-
-	//REDO THIS THIS IS OLD, use the actual distance like in box
-	//THIS IS SPHERE 
 	if (self->shape.type == ST_CIRCLE && other->shape.type == ST_CIRCLE) {
 
 		GFC_Vector2D distance;
@@ -92,7 +83,6 @@ void do_collision(Collider* self, Collider* other) {
 		gfc_vector2d_normalize(&distance);
 		//edit scale for collision force/elasticity
 		//gfc_vector3d_scale(scaledDistance, distance, 0.035);
-
 
 		//use layers to determine if any body is fixed
 		if (self->layer != C_WORLD)
@@ -153,17 +143,6 @@ void do_collision(Collider* self, Collider* other) {
 					self->position.x += xOverlap + slop;
 				self->velocity.x /= 2;
 			}
-
-			/*if (other->layer != C_WORLD) {
-				self->velocity.x = 0;
-
-				if (boxDistance.x > 0)
-					other->position.x -= (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
-				else
-					other->position.x += (self->shape.s.r.w / 2 + other->shape.s.r.w / 2) - xDist + 0.001f;
-				other->velocity.x = self->velocity.x;
-			}  */
-
 			return;
 		}
 		else if (max == &xDistRel) {
@@ -177,23 +156,11 @@ void do_collision(Collider* self, Collider* other) {
 
 				self->velocity.y /= 2;
 			}
-			// do collision adjustment only for self ?
-			/*if (other->layer != C_WORLD) {
-				self->velocity.y =  0;
-
-				if (boxDistance.y > 0)
-					other->position.y -= (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
-				else
-					other->position.y += (self->shape.s.r.h / 2 + other->shape.s.r.h / 2) - yDist + 0.001f;
-				other->velocity.y = self->velocity.y;
-			} */
-
 			return;
 		}
-
 	}
-
 }
+
 Uint8 predictive_circle_overlap(GFC_Circle a, GFC_Circle b, GFC_Vector2D a_d, GFC_Vector2D b_d)
 {
 	GFC_Vector2D v;
@@ -217,27 +184,8 @@ Uint8 predictive_rect_overlap(GFC_Rect a, GFC_Rect b, GFC_Vector2D a_d, GFC_Vect
 
 //collider will no longer have its own global position, just offset
 void collider_update(Collider* self) {
-	GFC_Vector2D oldPos = self->position;
 	//update stuff
 	gfc_vector2d_add(self->position, self->position, self->velocity);
-
-	//if (self->velocity.y > 0.1) self->velocity.y += self->gravity; no gravity yet
-	// no friction yet
-	//self->velocity.x *= 0.6f;
-	//if (self->gravity == 0)
-		//self->velocity.y *= 0.6f;
-
-	/* no longer moving primitives
-	if (self->shape.type == GPT_BOX) {
-		self->shape.s.b.x = self->position.x - self->primitive.s.b.w / 2;
-		self->shape.s.b.y = self->position.y - self->primitive.s.b.h / 2;
-	}
-	else if (self->shape.type == GPT_SPHERE) {
-		self->shape.s.s.x = self->position.x;
-		self->shape.s.s.y = self->position.y;
-	}
-	*/
-	//gfc_primitive_offset(self->primitive, gfc_vector3d_subbed(self->position, oldPos));
 }
 
 void set_as_trigger(Collider* self, Uint8 toBeTrigger) {

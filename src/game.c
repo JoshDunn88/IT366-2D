@@ -42,7 +42,7 @@ void game_init()
 void menu_init() {
     slog("initializing menu");
     _game_manager.game_mode = G_MENU;
-    _game_manager.menu_background = gf2d_sprite_load_image("images/background/menu_v1.png");
+    _game_manager.menu_background = gf2d_sprite_load_image("images/backgrounds/menu_v1.png");
 
 }
 
