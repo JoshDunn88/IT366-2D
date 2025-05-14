@@ -2,15 +2,18 @@
 #define __LEVEL_H__
 
 #include "gf2d_sprite.h"
-#include "entity.h"
+//#include "entity.h"
+#include "world.h"
+#include "enemy.h"
+#include "item.h"
 
 typedef struct Level_S
 {
 	Sprite*			level_background;
 	//char*			level_filename;
 	GFC_Vector2D	player_spawn;
-	int				object_total;
-	int				enemy_total;
+	//int				object_total;
+	//int				enemy_total;
 
 }Level;
 

@@ -36,7 +36,7 @@ Entity* item_new()
     self->sprite = gf2d_sprite_load_image("images/beverage.png");
     self->scale = gfc_vector2d(2, 2);
     self->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d_multiply(gfc_vector2d(self->sprite->frame_w, self->sprite->frame_h), self->scale));
-    self->collider->position = gfc_vector2d(1000, 400);
+    //self->collider->position = gfc_vector2d(1000, 400);
     self->collider->isTrigger = true;
     self->collider->layer = C_ITEM;
     self->collider->onTriggerEnter = item_triggered;

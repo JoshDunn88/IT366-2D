@@ -20,7 +20,7 @@ Entity* world_new_obstacle() {
     self->scale = gfc_vector2d(1, 1);
     //self->sprite = gf2d_sprite_load_image("images/ghoul.png");
     self->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(150, 50)); //very dumb make this a parameter for better cleanup
-    self->collider->position = gfc_vector2d(300, 550);
+    //self->collider->position = gfc_vector2d(300, 550);
     self->collider->isTrigger = false;
     self->collider->layer = C_WORLD;
     self->color_shift = gfc_color(0, 0, 1, 1);

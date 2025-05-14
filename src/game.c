@@ -64,8 +64,10 @@ void main_init() {
 
     /*demo setup*/
     player = player_new();
-    floor = world_new_obstacle();
-    bev = item_new();
+    //floor = world_new_obstacle();
+    //bev = item_new();
+    
+   
     //wall = world_new_obstacle();
     //wall->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(50, 200)); //not how this shit works man 
     //wall->collider->position = gfc_vector2d(300,200);
