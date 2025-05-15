@@ -34,6 +34,7 @@ void game_init()
     gfc_input_init("config/input.cfg");
 
     //my inits
+    entity_system_init(1024);
     font_init();
 
     SDL_ShowCursor(SDL_DISABLE);
@@ -50,10 +51,9 @@ void main_init() {
     slog("initializing main mode");
     _game_manager.game_mode = G_MAIN;
     Sprite* mousesprite;
-    Entity* player, * enemy, * floor, * wall, * bev;
+    Entity* player;
 
-    //my inits
-    entity_system_init(1024);
+    //moved entity init to game_init because used in sim mode too
 
 
     //todo make world object and do cam shit in there
@@ -84,7 +84,7 @@ void sim_init()
 {
     slog("initializing sim mode");
     _game_manager.game_mode = G_SIM;
-    return;
+    _game_manager.level_data = load_level_config_from_file("config/simulation.cfg");
 }
 
 void game_update() 
@@ -102,6 +102,11 @@ void game_update()
             switch_mode(G_MENU);
             //do closing for ents and shit
         }
+    }
+    if (gfc_input_command_released("three"))
+    {
+        //debugging ent system shenanigans
+        entity_check_all();
     }
 }
 void menu_update() 
@@ -127,6 +132,7 @@ void main_update()
 void sim_update() 
 {
     //do sim stuff here
+    //slog("we simmin fr fr");
     return;
 }
 
@@ -157,7 +163,31 @@ void main_draw()
 
 void sim_draw()
 {
+    int i = 0;
+    float pos = 0;
+    float dis = 100;
     gf2d_graphics_clear_screen();// clears drawing buffers
+        gf2d_sprite_draw_image(_game_manager.level_data.level_background, gfc_vector2d(0, 0));
+        
+        //draw grid
+        while (pos <= 1200)
+        {
+            pos = dis * i;
+            gf2d_draw_line(gfc_vector2d(pos, 0), gfc_vector2d(pos, 720), GFC_COLOR_LIGHTRED);
+            i++;
+        }
+        i = 0;
+        pos = 0;
+        while (pos <= 720)
+        {
+            pos = dis * i;
+            gf2d_draw_line(gfc_vector2d(0, pos), gfc_vector2d(1200, pos), GFC_COLOR_LIGHTRED);
+            i++;
+        }
+
+        //draw bodies and ents
+
+        //draw UI
         font_draw_text("you are in sim mode", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(700, 200));
     gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
     return;
@@ -166,8 +196,11 @@ void sim_draw()
 void change_level(const char* filename)
 {
     clear_level_data(_game_manager.level_data);
-    //save player data here
+    //save player data here, or don't if we just keep player existing
+    entity_clear_all(_game_manager.game_player); //clear all except player
     _game_manager.level_data = load_level_config_from_file(filename);
+    _game_manager.game_player->collider->position = _game_manager.level_data.player_spawn;
+    slog("successfully changed level");
 }
 
 void switch_mode(G_Mode next_mode) 
@@ -175,22 +208,22 @@ void switch_mode(G_Mode next_mode)
     switch (next_mode)
     {
     case(G_MENU):
-        entity_system_close(); //should be ok to do for all
+        slog("doing menu switch");
+        entity_clear_all(NULL); //instead of close, keep ent system open while in menu
         //need to do bodies to if that becomes it's own system
         //if player exists (in main mode) then save player temp data to cfg? or only do this for level switch prolly
+        slog("about to menu init");
         menu_init();
         break;
     case(G_MAIN):
-        //entity_system_close(); shouldn't need, already in menu
         main_init();
         break;
     case(G_SIM):
-        //entity_system_close();
         sim_init();
         break;
     default:
+        slog("no valid game mode to switch to");
         //probably just exit if somehow no game mode
-        break;
     }
 }
 

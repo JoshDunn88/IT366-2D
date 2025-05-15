@@ -114,8 +114,8 @@ void entity_clear_all(Entity* ignore)
 	for (i = 0; i < _entity_manager.entityMax; i++) {
 		if (ignore && &_entity_manager.entityList[i] == ignore) continue;
 		_entity_manager.entityList[i]._inuse = false;
-		//this was wrong?
-		//do specific free
+
+		slog("about to free an entity");
 		entity_free(&_entity_manager.entityList[i]);
 
 	}
@@ -151,6 +151,21 @@ void entity_update_all()
 		if (!_entity_manager.entityList[i]._inuse) continue;
 		if (!_entity_manager.entityList[i].alive) continue;
 		entity_update(&_entity_manager.entityList[i]);
+	}
+}
+
+void entity_check_all()
+{
+	if (!_entity_manager.entityList)
+	{
+		slog("no entity list to check");
+		return;
+	}
+
+	int i;
+	for (int i = 0; i < _entity_manager.entityMax; i++) {
+		if (!_entity_manager.entityList[i]._inuse) continue;
+		slog("ent in slot %i", i);
 	}
 }
 
@@ -205,20 +220,29 @@ Entity* entity_new()
 void entity_free(Entity* self)
 {
 	if (!self) return;
+	self->_inuse = false; //double check
 	if (self->sprite) {
 		gf2d_sprite_free(self->sprite);
+		self->sprite = NULL; //forgot to do this before and safe to say it caused some problems rip
 		slog("sprite freed");
 	}
-
 	if (self->collider) {
 		free(self->collider);
+		self->collider = NULL;
 		slog("collider freed");
 	}
 	//free anything special that may have been allocated FOR this
 	if (self->free) {
 		self->free(self->data);
-		slog("data freed");
+		self->data = NULL;
 	}
+	self->sprite = NULL;
+	self->update = NULL;
+	self->think = NULL;
+	self->data = NULL;
+	self->draw = NULL;
+	self->free = NULL;
+	slog("freed dat ent");
 }
 
 void entity_think(Entity* self)

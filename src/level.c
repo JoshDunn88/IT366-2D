@@ -27,6 +27,9 @@ Level load_level_config_from_file(const char* filename)
         //meshfile = sj_object_get_value_as_string(current, "mesh");
         //environment->scale = gfc_vector3d(1, 1, 1);
         //environment->rotation = gfc_vector3d(0, 0, 0);
+        sj_object_get_value_as_float(current, "playerspawnx", &newlevel.player_spawn.x);
+        sj_object_get_value_as_float(current, "playerspawny", &newlevel.player_spawn.y);
+
         newlevel.level_background = gf2d_sprite_load_image(sj_object_get_value_as_string(current, "background"));
         //sj_value_as_vector2d(sj_object_get_value(current, "player_spawn"), &newlevel.player_spawn); need to make own vector function?
     }
@@ -133,4 +136,5 @@ void clear_level_data(Level currentlevel)
 {
     if (currentlevel.level_background)
 	    gf2d_sprite_delete(currentlevel.level_background);
+    //entity_clear_all(NULL); need to feed 
 }

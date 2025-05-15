@@ -85,6 +85,12 @@ void entity_update_all();
 void entity_draw_all();
 
 /*
+ * @brief check occupied ent slots
+
+*/
+void entity_check_all();
+
+/*
  * @brief get a blank entity for use
  * @return NULL on failure (no more room), or a pointer to initialized entity
 
