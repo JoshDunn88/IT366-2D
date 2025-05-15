@@ -216,6 +216,7 @@ Entity* entity_new()
 		memset(&_entity_manager.entityList[i], 0, sizeof(Entity));
 		_entity_manager.entityList[i]._inuse = 1;
 		_entity_manager.entityList[i].scale = gfc_vector2d(1, 1);
+		_entity_manager.entityList[i].center = gfc_vector2d(0, 0);
 		_entity_manager.entityList[i].collider = NULL;
 		_entity_manager.entityList[i].body = NULL;
 		_entity_manager.entityList[i].alive = 1;
@@ -288,6 +289,7 @@ void entity_update(Entity* self)
 		body_update(self->body);
 		//set entity pos to collider pos
 		gfc_vector2d_scale(self->position, self->body->position, 1);
+		self->rotation = self->body->rotation;
 	}
 	//meupdate
 	if (self->update) self->update(self);
@@ -306,12 +308,13 @@ void entity_draw(Entity* self)
 	offset = camera_get_offset();
 	gfc_vector2d_add(position, self->position, offset);
 
+	float rot = self->rotation * 180 / GFC_PI;
 	gf2d_sprite_draw(
 		self->sprite,
 		position,
 		&self->scale,
 		&self->center,
-		&self->rotation,
+		&rot,
 		&self->flip,
 		&self->color_shift,
 		self->frame
@@ -332,6 +335,29 @@ void entity_draw_ui(Entity* self) {
 			gf2d_draw_shape(self->collider->shape, gfc_color8(0, 255, 0, 200), position);
 		else
 			gf2d_draw_shape(self->collider->shape, gfc_color8(0, 255, 0, 200), position);
+	}
+
+	if (self->body) {
+		GFC_Color line_color = gfc_color8(100, 255, 0, 250);
+		//this sucks, should really just make my own polygon struct later
+		if (self->body->shape.type == ST_RECT) 
+		{
+			GFC_Vector2D p1 = {0}, p2 = { 0 }, p3 = { 0 }, p4 = { 0 };
+			p1 = position;
+			gfc_vector2d_add(p2, position, gfc_vector2d(self->body->shape.s.r.w, 0));
+			gfc_vector2d_add(p3, position, gfc_vector2d(self->body->shape.s.r.w, self->body->shape.s.r.h));
+			gfc_vector2d_add(p4, position, gfc_vector2d(0, self->body->shape.s.r.h));
+
+			p2 = gfc_vector2d_rotate_around_center(p2, self->rotation, p1);
+			p3 = gfc_vector2d_rotate_around_center(p3, self->rotation, p1);
+			p4 = gfc_vector2d_rotate_around_center(p4, self->rotation, p1);
+			slog("p1 at %f, %f", p1.x, p1.y);
+			gf2d_draw_line(p1,p2, line_color);
+			gf2d_draw_line(p2,p3, line_color);
+			gf2d_draw_line(p3,p4, line_color);
+			gf2d_draw_line(p1,p4, line_color);
+		}
+			//gf2d_draw_shape(self->body->shape, gfc_color8(0, 255, 0, 200), position);
 	}
 	//might have to check for circle type because of shape offset
 }

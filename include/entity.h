@@ -28,7 +28,7 @@ typedef struct Entity_S
 	E_Type			type;
 	Sprite* sprite; // entity's sprite if it has one
 	GFC_Color		color_shift;
-	GFC_Vector2D	center; //for scaling in draw?
+	GFC_Vector2D	center; //for scaling/rotating in draw?
 	GFC_Vector2D	scale; //for drawing only
 	GFC_Vector2D	flip; //x flip, y flip, for drawing only
 	float			rotation; //for drawing only

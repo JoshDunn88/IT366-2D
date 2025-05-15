@@ -3,7 +3,7 @@
 
 #include "world.h"
 
-
+//change this to take position and dimensions later
 Entity* world_new_static_object() {
     Entity* self;
     self = entity_new();
@@ -18,7 +18,7 @@ Entity* world_new_static_object() {
 
     self->rotation = 0;
     self->scale = gfc_vector2d(1, 1);
-    //self->sprite = gf2d_sprite_load_image("images/ghoul.png");
+    self->sprite = gf2d_sprite_load_image("images/100x100_rect.png");
 
     //self->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(150, 50)); //very dumb make this a parameter for better cleanup
     //self->collider->position = gfc_vector2d(300, 550);
@@ -34,7 +34,7 @@ Entity* world_new_static_object() {
     //self->think = enemy_think;
     //self->update = enemy_update;
     //self->free = enemy_free;
-    self->draw = object_draw;
+    //self->draw = object_draw;
     //self->data = enemy_data_new();
 
     return self;

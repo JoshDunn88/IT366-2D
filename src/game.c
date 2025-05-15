@@ -87,6 +87,16 @@ void sim_init()
 {
     slog("initializing sim mode");
     _game_manager.game_mode = G_SIM;
+
+    //reset camera in case switched from main game
+    
+    //todo make world object and do cam shit in there
+    camera_set_bounds(gfc_rect(0, 0, 5000, 2000));
+    camera_set_size(gfc_vector2d(1200, 720));
+    //camera_apply_bounds();
+    camera_enable_binding(0);
+    camera_center_on(gfc_vector2d(600, 360));
+
     _game_manager.level_data = load_level_config_from_file("config/simulation.cfg");
     SDL_ShowCursor(SDL_ENABLE);
 }
@@ -147,7 +157,8 @@ void sim_update()
         spawnpos.y = (float) y;
         slog("spawning rect body at %f, %f", spawnpos.x, spawnpos.y);
         Entity* newObj = world_new_static_object();
-        newObj->body->position = spawnpos;  
+        newObj->body->position = spawnpos; 
+        newObj->body->rotation = 0.25 * GFC_PI;
     }
 
     entity_think_all();
@@ -209,7 +220,7 @@ void sim_draw()
         //draw bodies and ents
         entity_draw_all();
         //draw UI
-        font_draw_text("you are in sim mode", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(700, 200));
+        font_draw_text("you are in sim mode", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
     gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
     return;
 }
