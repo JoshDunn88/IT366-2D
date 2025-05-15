@@ -10,6 +10,8 @@
 #include "camera.h"
 #include "collision.h"
 
+#include "body.h"
+
 typedef enum
 {
 	E_DEFAULT,
@@ -33,10 +35,10 @@ typedef struct Entity_S
 	int				frame; // current animation frame
 
 	GFC_Vector2D	position;
-	GFC_Vector2D	velocity;
-	GFC_Vector2D	acceleration; // maybe don't need for now
 
-	Collider* collider;
+	Collider*		collider;
+
+	Body*			body; //physics body
 
 	Uint8			_inuse;	//flag for memory management
 	Uint8			alive;	//flag for life

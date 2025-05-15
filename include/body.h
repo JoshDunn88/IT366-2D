@@ -8,13 +8,13 @@
 
 typedef enum
 {
-	C_DEFAULT,
-	C_PLAYER,
-	C_ENEMY,
-	C_ITEM,
-	C_WORLD,
-	C_MAX
-}C_Layer;
+	B_DEFAULT,
+	B_PLAYER,
+	B_ENEMY,
+	B_ITEM,
+	B_WORLD,
+	B_MAX
+}B_Layer;
 
 //do I need collision struct?
 
@@ -24,13 +24,13 @@ typedef struct Body_S
 	GFC_Shape		shape; //shape
 	GFC_Vector2D	center_of_mass; //center of mass (offset from origin) maybe just make this a function?
 
-	GFC_Vector2D	position; //top left position, or center if circle 
-	float			rotation; //top left position, or center if circle 
+	GFC_Vector2D	position; //top left position,
+	float			rotation; //rotation in radians?
 
 	GFC_Vector2D	velocity; //how much to move per update
 	GFC_Vector2D	acceleration; //how much to increment velocity per update
 
-	C_Layer			layer; //collision layer
+	B_Layer			layer; //collision layer
 	Uint8			dynamic; //if body is dynamic or static
 
 
@@ -53,13 +53,13 @@ Body* circle_body_new(GFC_Vector2D position, float radius);
  * @param dimensions
  * @return the created body
 */
-Body* rect_collider_new(GFC_Vector2D position, GFC_Vector2D dimensions);
+Body* rect_body_new(GFC_Vector2D position, GFC_Vector2D dimensions);
 
 /*
- * @brief free collider
+ * @brief free collider data
  * @param self this collider
 */
-void body_free(Body* self);
+void body_free(Body* self); //not needed yet, no pointers
 
 
 /*

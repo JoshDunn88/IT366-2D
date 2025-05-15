@@ -102,6 +102,17 @@ Entity* entity_get_by_collider(Collider* self) {
 	return NULL;
 }
 
+Entity* entity_get_by_body(Body* self) {
+	if (!self) return NULL;
+	int i;
+	for (i = 0; i < _entity_manager.entityMax; i++) {
+		if (!_entity_manager.entityList[i]._inuse) continue;
+		if (_entity_manager.entityList[i].body == self) return &_entity_manager.entityList[i];
+
+	}
+	return NULL;
+}
+
 void entity_clear_all(Entity* ignore)
 {
 	if (!_entity_manager.entityList)
