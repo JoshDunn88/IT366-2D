@@ -16,7 +16,17 @@ typedef enum
 	B_MAX
 }B_Layer;
 
-//do I need collision struct?
+//do I need collision struct? yes for register_collision from ents who need it for taking damage and shit
+typedef struct Collision_S
+{
+	GFC_Vector2D	poc; //point of contact, idk if world or relative yet
+	GFC_Vector2D	normal; //point of contact, idk if world or relative yet
+
+	float			force; //magnitude of the force of the collision
+
+	Uint8			registered; //flag for if registered by ent or not
+
+}Collision;
 
 typedef struct Body_S
 {
@@ -24,8 +34,11 @@ typedef struct Body_S
 	GFC_Shape		shape; //shape
 	GFC_Vector2D	center_of_mass; //center of mass (offset from origin) maybe just make this a function?
 
+	Collision		last_collision; //info about most recent collision, set registered flag when ent uses it 
+
 	GFC_Vector2D	position; //top left position,
 	float			rotation; //rotation in radians?
+	float			mass;
 
 	GFC_Vector2D	velocity; //how much to move per update
 	GFC_Vector2D	acceleration; //how much to increment velocity per update
@@ -35,6 +48,10 @@ typedef struct Body_S
 
 
 }Body;
+
+//TODO: make body system like entity management, can't really do this until I have actual level editing really,
+// then you could just draw colliders over the background image maybe, or something else idk
+
 
 Body* body_setup(GFC_Shape shape);
 

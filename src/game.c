@@ -37,14 +37,14 @@ void game_init()
     entity_system_init(1024);
     font_init();
 
-    SDL_ShowCursor(SDL_DISABLE);
+    
 }
 
 void menu_init() {
     slog("initializing menu");
     _game_manager.game_mode = G_MENU;
     _game_manager.menu_background = gf2d_sprite_load_image("images/backgrounds/menu_v1.png");
-
+    SDL_ShowCursor(SDL_ENABLE);
 }
 
 void main_init() {
@@ -71,13 +71,16 @@ void main_init() {
     //wall = world_new_obstacle();
     //wall->collider = rect_collider_new(gfc_vector2d(0, 0), gfc_vector2d(50, 200)); //not how this shit works man 
     //wall->collider->position = gfc_vector2d(300,200);
-    slog("player made");
+    
     //enemy = enemy_new();
-    slog("enemy made");
+    
 
     //game manager setup
     _game_manager.game_player = player;
     _game_manager.level_data = load_level_config_from_file("config/level1.cfg");
+
+    SDL_ShowCursor(SDL_DISABLE);
+    slog("main game initialized");
 }
 
 void sim_init() 
@@ -85,6 +88,7 @@ void sim_init()
     slog("initializing sim mode");
     _game_manager.game_mode = G_SIM;
     _game_manager.level_data = load_level_config_from_file("config/simulation.cfg");
+    SDL_ShowCursor(SDL_ENABLE);
 }
 
 void game_update() 
@@ -132,9 +136,23 @@ void main_update()
 void sim_update() 
 {
     //do sim stuff here
+
+    //sim inputs
+    if (gfc_input_command_released("one"))
+    {
+        int x, y;
+        GFC_Vector2D spawnpos = { 0 };
+        SDL_GetMouseState(&x, &y);
+        spawnpos.x = (float) x;
+        spawnpos.y = (float) y;
+        slog("spawning rect body at %f, %f", spawnpos.x, spawnpos.y);
+        Entity* newObj = world_new_static_object();
+        newObj->body->position = spawnpos;  
+    }
+
     entity_think_all();
     entity_update_all();
-    //static bodies maybe separate? world manager? space?
+    //static bodies update maybe separate? world manager? space?
     //slog("we simmin fr fr");
     return;
 }
@@ -269,7 +287,7 @@ int main(int argc, char* argv[])
 
 //mouse stuff for sim later
 // //init 
-//  Sprite* sprite;
+//  Sprite* mousesprite;
    
 
     //revisit for sim mouse controls

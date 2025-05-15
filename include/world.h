@@ -3,10 +3,12 @@
 
 #include "entity.h"
 
-Entity* world_new_obstacle();
 
+Entity* world_new_static_object();
 
-void obstacle_draw(Entity* self);
+Entity* world_new_dynamic_object();
+
+void object_draw(Entity* self);
 
 
 

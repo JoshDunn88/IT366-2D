@@ -217,6 +217,7 @@ Entity* entity_new()
 		_entity_manager.entityList[i]._inuse = 1;
 		_entity_manager.entityList[i].scale = gfc_vector2d(1, 1);
 		_entity_manager.entityList[i].collider = NULL;
+		_entity_manager.entityList[i].body = NULL;
 		_entity_manager.entityList[i].alive = 1;
 		_entity_manager.entityList[i].frame = 0;
 		_entity_manager.entityList[i].type = E_DEFAULT;
@@ -240,6 +241,11 @@ void entity_free(Entity* self)
 	if (self->collider) {
 		free(self->collider);
 		self->collider = NULL;
+		slog("collider freed");
+	}
+	if (self->body) {
+		free(self->body);
+		self->body = NULL;
 		slog("collider freed");
 	}
 	//free anything special that may have been allocated FOR this
@@ -275,6 +281,13 @@ void entity_update(Entity* self)
 		collider_update(self->collider);
 		//set entity pos to collider pos
 		gfc_vector2d_scale(self->position, self->collider->position, 1);
+	}
+	else if (self->body){ ///todo fix dis
+		//check_collisions(self->collider);
+		//slog("about to update body");
+		body_update(self->body);
+		//set entity pos to collider pos
+		gfc_vector2d_scale(self->position, self->body->position, 1);
 	}
 	//meupdate
 	if (self->update) self->update(self);

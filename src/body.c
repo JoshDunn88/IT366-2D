@@ -2,6 +2,14 @@
 #include "body.h"
 
 
+typedef struct
+{
+	Body* bodyList;
+	Uint32 bodyMax;
+}BodyManager;
+
+static BodyManager _body_manager = { 0 }; //initialize local global body manager
+
 Body* body_setup(GFC_Shape shape)
 {
 	Body* self = malloc(sizeof(Body));
