@@ -31,7 +31,7 @@ typedef struct Entity_S
 	GFC_Vector2D	center; //for scaling/rotating in draw?
 	GFC_Vector2D	scale; //for drawing only
 	GFC_Vector2D	flip; //x flip, y flip, for drawing only
-	float			rotation; //for drawing only
+	float			rotation; //radians
 	int				frame; // current animation frame
 
 	GFC_Vector2D	position;

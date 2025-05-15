@@ -351,7 +351,7 @@ void entity_draw_ui(Entity* self) {
 			p2 = gfc_vector2d_rotate_around_center(p2, self->rotation, p1);
 			p3 = gfc_vector2d_rotate_around_center(p3, self->rotation, p1);
 			p4 = gfc_vector2d_rotate_around_center(p4, self->rotation, p1);
-			slog("p1 at %f, %f", p1.x, p1.y);
+			//slog("p1 at %f, %f", p1.x, p1.y);
 			gf2d_draw_line(p1,p2, line_color);
 			gf2d_draw_line(p2,p3, line_color);
 			gf2d_draw_line(p3,p4, line_color);

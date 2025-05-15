@@ -117,11 +117,11 @@ void game_update()
             //do closing for ents and shit
         }
     }
-    if (gfc_input_command_released("three"))
-    {
+    //if (gfc_input_command_released("three"))
+    //{
         //debugging ent system shenanigans
-        entity_check_all();
-    }
+    //    entity_check_all();
+   // }
 }
 void menu_update() 
 {
@@ -159,8 +159,11 @@ void sim_update()
         Entity* newObj = world_new_static_object();
         newObj->body->position = spawnpos; 
         newObj->body->rotation = 0.25 * GFC_PI;
+
+        detect_collision(newObj->body, newObj->body, NULL, NULL);
     }
 
+  
     entity_think_all();
     entity_update_all();
     //static bodies update maybe separate? world manager? space?
