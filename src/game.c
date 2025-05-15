@@ -132,6 +132,9 @@ void main_update()
 void sim_update() 
 {
     //do sim stuff here
+    entity_think_all();
+    entity_update_all();
+    //static bodies maybe separate? world manager? space?
     //slog("we simmin fr fr");
     return;
 }
@@ -186,7 +189,7 @@ void sim_draw()
         }
 
         //draw bodies and ents
-
+        entity_draw_all();
         //draw UI
         font_draw_text("you are in sim mode", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(700, 200));
     gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
