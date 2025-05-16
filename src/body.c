@@ -112,8 +112,37 @@ Uint8 detect_collision(Body* self, Body* other, GFC_Vector2D* poc, GFC_Vector2D*
 	float projected_s_p3 = gfc_vector2d_dot_product(s_p3, x_axis);
 	float projected_s_p4 = gfc_vector2d_dot_product(s_p4, x_axis);
 
-	slog("projected points: %f, %f, %f, %f", projected_s_p1, projected_s_p2, projected_s_p3, projected_s_p4);
+	float projected_o_p1 = gfc_vector2d_dot_product(o_p1, x_axis);
+	float projected_o_p2 = gfc_vector2d_dot_product(o_p2, x_axis);
+	float projected_o_p3 = gfc_vector2d_dot_product(o_p3, x_axis);
+	float projected_o_p4 = gfc_vector2d_dot_product(o_p4, x_axis);
 
+	slog("projected s points: %f, %f, %f, %f", projected_s_p1, projected_s_p2, projected_s_p3, projected_s_p4);
+	slog("projected o points: %f, %f, %f, %f", projected_o_p1, projected_o_p2, projected_o_p3, projected_o_p4);
+
+	//get mins and maxes
+	float s_min = projected_s_p1;
+	s_min = min(s_min, projected_s_p2);
+	s_min = min(s_min, projected_s_p3);
+	s_min = min(s_min, projected_s_p4);
+
+	float s_max = projected_s_p1;
+	s_max = max(s_max, projected_s_p2);
+	s_max = max(s_max, projected_s_p3);
+	s_max = max(s_max, projected_s_p4);
+
+	float o_min = projected_o_p1;
+	o_min = min(o_min, projected_o_p2);
+	o_min = min(o_min, projected_o_p3);
+	o_min = min(o_min, projected_o_p4);
+
+	float o_max = projected_o_p1;
+	o_max = max(o_max, projected_o_p2);
+	o_max = max(o_max, projected_o_p3);
+	o_max = max(o_max, projected_o_p4);
+
+	slog("min s point: %f, max s point %f", s_min, s_max);
+	slog("min o point: %f, max o point %f", o_min, o_max);
 
 	return false;
 }
