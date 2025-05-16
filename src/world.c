@@ -29,7 +29,7 @@ Entity* world_new_static_object() {
     self->body->dynamic = false;
     self->body->layer = B_WORLD;
 
-    self->color_shift = gfc_color(0, 0, 1, 1);
+   // self->color_shift = gfc_color(0, 0, 1, 1);
     //behavior
     //self->think = enemy_think;
     //self->update = enemy_update;

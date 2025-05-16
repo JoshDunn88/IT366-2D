@@ -35,7 +35,7 @@ typedef struct Body_S
 
 	//rotated polygon data
 	GFC_Vector2D*		rot_points; //list of points rotated by rotation
-	GFC_Vector2D*		rot_edges; //list of edges rotated by rotation
+	GFC_Edge2D*			rot_edges; //list of edges rotated by rotation
 	GFC_Vector2D*		rot_normals; //list of edge normals rotated by rotation
 
 	GFC_Vector2D	center_of_mass; //center of mass (offset from origin) maybe just make this a function?
@@ -48,6 +48,8 @@ typedef struct Body_S
 
 	GFC_Vector2D	velocity; //how much to move per update
 	GFC_Vector2D	acceleration; //how much to increment velocity per update
+
+	float	ang_velocity;
 
 	B_Layer			layer; //collision layer
 	Uint8			dynamic; //if body is dynamic or static
@@ -100,6 +102,10 @@ void body_free(Body* self); //not needed yet, no pointers
  * @return 1 if yes, 0 if no
 */
 Uint8 detect_collision(Body* self, Body* other, GFC_Vector2D *poc, GFC_Vector2D* normal);
+
+Uint8 check_axis(Body* self, Body* other, GFC_Vector2D axis);
+
+GFC_Vector2D get_edge_normal(GFC_Edge2D edge);
 
 /*
  * @brief do collision effect for this and other

@@ -158,7 +158,25 @@ void sim_update()
         slog("spawning rect body at %f, %f", spawnpos.x, spawnpos.y);
         Entity* newObj = world_new_static_object();
         newObj->body->position = spawnpos; 
-        newObj->body->rotation = 0.25 * GFC_PI;
+        newObj->body->rotation = 0.15 * GFC_PI;
+        body_rot_update(newObj->body); //update arrays here for testing
+        //detect_collision(newObj->body, newObj->body, NULL, NULL);
+    }
+
+    if (gfc_input_command_released("two"))
+    {
+        int x, y;
+        GFC_Vector2D spawnpos = { 0 };
+        SDL_GetMouseState(&x, &y);
+        spawnpos.x = (float)x;
+        spawnpos.y = (float)y;
+        slog("spawning rect body at %f, %f", spawnpos.x, spawnpos.y);
+        Entity* newObj = world_new_static_object();
+        newObj->body->position = spawnpos;
+        newObj->body->rotation = 1.25 * GFC_PI;
+        newObj->body->velocity.y = gfc_random() * 3;
+        newObj->body->velocity.x = gfc_random() * 3;
+        newObj->body->ang_velocity = gfc_random() * 0.1;
         body_rot_update(newObj->body); //update arrays here for testing
         //detect_collision(newObj->body, newObj->body, NULL, NULL);
     }

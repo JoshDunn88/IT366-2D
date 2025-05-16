@@ -90,6 +90,7 @@ void detect_collisions(Body* self) {
 	if (!self) return;
 	int i;
 	Uint8 collided = 0;
+	Uint8 collided_once = 0;
 	for (i = 0; i < _entity_manager.entityMax; i++) {
 		if (!_entity_manager.entityList[i]._inuse) continue;
 		if (!_entity_manager.entityList[i].alive) continue;
@@ -97,9 +98,27 @@ void detect_collisions(Body* self) {
 		if (_entity_manager.entityList[i].body == self) continue; //skip self
 
 		collided = detect_collision(self, _entity_manager.entityList[i].body, NULL, NULL); //self_sub_velocity, other_sub_velocity
-		if (!collided) continue;
+		if (!collided) {
+			continue;
+		}
+		else {
+			collided_once = true;
+		}
 		//do stuff?
+		
 	}
+	if (collided_once) 
+	{
+		entity_get_by_body(self)->color_shift = gfc_color8(0, 255, 0, 255);
+		_entity_manager.entityList[i].color_shift = gfc_color8(0, 255, 0, 255);
+
+	}
+	else
+	{
+		entity_get_by_body(self)->color_shift = gfc_color8(255, 255, 255, 255);
+		_entity_manager.entityList[i].color_shift = gfc_color8(255, 255, 255, 255);
+	}
+
 }
 
 Entity* entity_get_by_collider(Collider* self) {
@@ -228,6 +247,7 @@ Entity* entity_new()
 		_entity_manager.entityList[i]._inuse = 1;
 		_entity_manager.entityList[i].scale = gfc_vector2d(1, 1);
 		_entity_manager.entityList[i].center = gfc_vector2d(0, 0);
+		_entity_manager.entityList[i].color_shift = gfc_color(1, 1, 1, 1);
 		_entity_manager.entityList[i].collider = NULL;
 		_entity_manager.entityList[i].body = NULL;
 		_entity_manager.entityList[i].alive = 1;
