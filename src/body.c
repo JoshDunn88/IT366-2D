@@ -94,14 +94,14 @@ Uint8 detect_collision(Body* self, Body* other, GFC_Vector2D* poc, GFC_Vector2D*
 				return false;
 			}
 
-			//maybe don't need to do both
-			//axis = other->rot_normals[i];
+			//you need to do all 
+			axis = other->rot_normals[i];
 			//slog("checking other axis: %f, %f", axis.x, axis.y);
-			//collided = check_axis(self, other, axis);
-			//if (!collided)
-			//{
-			//	return false;
-			//}
+			collided_axis = check_axis(self, other, axis);
+			if (!collided_axis)
+			{
+				return false;
+			}
 		}
 		
 	}
@@ -152,11 +152,10 @@ Uint8 check_axis(Body* self, Body* other, GFC_Vector2D axis)
 	//slog("min s point: %f, max s point %f", s_min, s_max);
 	//slog("min o point: %f, max o point %f", o_min, o_max);
 
-	if (s_min > o_max || s_max < o_min)
+	if (s_min > o_max || s_max < o_min) //edge case for line fully inside another?
 	{
 		return false;
 	}
-
 	//slog("colliding axis");
 	return true;
 }

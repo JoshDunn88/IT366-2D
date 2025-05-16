@@ -158,7 +158,7 @@ void sim_update()
         slog("spawning rect body at %f, %f", spawnpos.x, spawnpos.y);
         Entity* newObj = world_new_static_object();
         newObj->body->position = spawnpos; 
-        newObj->body->rotation = 0.15 * GFC_PI;
+        newObj->body->rotation = gfc_random() * GFC_2PI;
         body_rot_update(newObj->body); //update arrays here for testing
         //detect_collision(newObj->body, newObj->body, NULL, NULL);
     }

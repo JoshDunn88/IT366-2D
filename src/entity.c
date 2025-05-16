@@ -110,13 +110,11 @@ void detect_collisions(Body* self) {
 	if (collided_once) 
 	{
 		entity_get_by_body(self)->color_shift = gfc_color8(0, 255, 0, 255);
-		_entity_manager.entityList[i].color_shift = gfc_color8(0, 255, 0, 255);
 
 	}
 	else
 	{
 		entity_get_by_body(self)->color_shift = gfc_color8(255, 255, 255, 255);
-		_entity_manager.entityList[i].color_shift = gfc_color8(255, 255, 255, 255);
 	}
 
 }
