@@ -124,7 +124,7 @@ void do_collision(Collider* self, Collider* other) {
 			above = false;
 		}
 
-		slog("overlaps: x %f, y %f", xOverlap, yOverlap);
+		//slog("overlaps: x %f, y %f", xOverlap, yOverlap);
 		float xDistRel = xOverlap / (self->shape.s.r.w);
 		float yDistRel = yOverlap / (self->shape.s.r.h);
 		//slog("dists: x %f, y %f", xDist, yDist);
