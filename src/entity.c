@@ -245,6 +245,7 @@ void entity_free(Entity* self)
 		slog("collider freed");
 	}
 	if (self->body) {
+		body_free(self->body); //free body allocated data first
 		free(self->body);
 		self->body = NULL;
 		slog("collider freed");

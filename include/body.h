@@ -32,6 +32,12 @@ typedef struct Body_S
 {
 	//data
 	GFC_Shape		shape; //shape
+
+	//rotated polygon data
+	GFC_Vector2D*		rot_points; //list of points rotated by rotation
+	GFC_Vector2D*		rot_edges; //list of edges rotated by rotation
+	GFC_Vector2D*		rot_normals; //list of edge normals rotated by rotation
+
 	GFC_Vector2D	center_of_mass; //center of mass (offset from origin) maybe just make this a function?
 	//add storing bounds scale for easier access
 	Collision		last_collision; //info about most recent collision, set registered flag when ent uses it 
@@ -105,9 +111,15 @@ void resolve_collision(Body* self, Body* other);
 /*
  * @brief apply movement to collider
  * @param self this collider
- * @param other other collider
 */
 void body_update(Body* self);
+
+
+/*
+ * @brief update rotated body data
+ * @param self this collider=
+*/
+void body_rot_update(Body* self);
 
 
 
