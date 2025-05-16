@@ -46,13 +46,8 @@ void check_collisions(Collider* self) {
 		if (!_entity_manager.entityList[i]._inuse) continue;
 		if (!_entity_manager.entityList[i].alive) continue;
 		if (!_entity_manager.entityList[i].collider) continue;
-		//skip same layer collisions
-		//if (self->layer == _entity_manager.entityList[i].collider->layer) return;
-		//int it;
-		//int iterations = 40;
-		//for (it = 1; it <= iterations; it++) {
-			//gfc_vector2d_scale(self_sub_velocity, self->velocity, (it / iterations));
-			//gfc_vector2d_scale(other_sub_velocity, _entity_manager.entityList[i].collider->velocity, (it / iterations));
+		if (_entity_manager.entityList[i].collider == self) continue; //dont do self
+		
 		collided = check_collision(self, _entity_manager.entityList[i].collider); //self_sub_velocity, other_sub_velocity
 		if (!collided) continue;
 		//else slog("collided at substep %i", it);
@@ -88,6 +83,22 @@ void check_collisions(Collider* self) {
 				continue;
 			}
 		}
+	}
+}
+
+void detect_collisions(Body* self) {
+	if (!self) return;
+	int i;
+	Uint8 collided = 0;
+	for (i = 0; i < _entity_manager.entityMax; i++) {
+		if (!_entity_manager.entityList[i]._inuse) continue;
+		if (!_entity_manager.entityList[i].alive) continue;
+		if (!_entity_manager.entityList[i].body) continue;
+		if (_entity_manager.entityList[i].body == self) continue; //skip self
+
+		collided = detect_collision(self, _entity_manager.entityList[i].body, NULL, NULL); //self_sub_velocity, other_sub_velocity
+		if (!collided) continue;
+		//do stuff?
 	}
 }
 
@@ -287,6 +298,7 @@ void entity_update(Entity* self)
 	else if (self->body){ ///todo fix dis
 		//check_collisions(self->collider);
 		//slog("about to update body");
+		detect_collisions(self->body);
 		body_update(self->body);
 		//set entity pos to collider pos
 		gfc_vector2d_scale(self->position, self->body->position, 1);

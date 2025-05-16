@@ -128,5 +128,7 @@ Entity* get_player();
 
 void check_collisions(Collider* self);
 
+void detect_collisions(Body* self);
+
 Entity* entity_get_by_collider(Collider* self);
 #endif

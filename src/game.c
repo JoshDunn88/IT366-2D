@@ -160,7 +160,7 @@ void sim_update()
         newObj->body->position = spawnpos; 
         newObj->body->rotation = 0.25 * GFC_PI;
         body_rot_update(newObj->body); //update arrays here for testing
-        detect_collision(newObj->body, newObj->body, NULL, NULL);
+        //detect_collision(newObj->body, newObj->body, NULL, NULL);
     }
 
   

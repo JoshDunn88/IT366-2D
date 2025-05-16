@@ -132,8 +132,8 @@ Uint8 detect_collision(Body* self, Body* other, GFC_Vector2D* poc, GFC_Vector2D*
 	float projected_o_p3 = gfc_vector2d_dot_product(other->rot_points[2], x_axis);
 	float projected_o_p4 = gfc_vector2d_dot_product(other->rot_points[3], x_axis);
 
-	slog("projected s points: %f, %f, %f, %f", projected_s_p1, projected_s_p2, projected_s_p3, projected_s_p4);
-	slog("projected o points: %f, %f, %f, %f", projected_o_p1, projected_o_p2, projected_o_p3, projected_o_p4);
+	//slog("projected s points: %f, %f, %f, %f", projected_s_p1, projected_s_p2, projected_s_p3, projected_s_p4);
+	//slog("projected o points: %f, %f, %f, %f", projected_o_p1, projected_o_p2, projected_o_p3, projected_o_p4);
 
 	//get mins and maxes
 	float s_min = projected_s_p1;
@@ -156,14 +156,19 @@ Uint8 detect_collision(Body* self, Body* other, GFC_Vector2D* poc, GFC_Vector2D*
 	o_max = max(o_max, projected_o_p3);
 	o_max = max(o_max, projected_o_p4);
 
-	slog("min s point: %f, max s point %f", s_min, s_max);
-	slog("min o point: %f, max o point %f", o_min, o_max);
+	//slog("min s point: %f, max s point %f", s_min, s_max);
+	//slog("min o point: %f, max o point %f", o_min, o_max);
 
+	if (s_min > o_max || s_max < o_min) 
+	{
+		return false;
+	}
+	slog("colliding");
 
 	//cleanup lists if made any
 	
 
-	return false;
+	return true;
 }
 
 void resolve_collision(Body* self, Body* other)
