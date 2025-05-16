@@ -15,6 +15,9 @@ typedef enum {
 	FS_small,
 	FS_medium,
 	FS_large,
+	FS_huge,
+	FS_enormous,
+	FS_astronomical,
 	FS_MAX
 }FontStyle;
 

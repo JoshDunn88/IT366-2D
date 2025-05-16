@@ -141,6 +141,16 @@ void main_update()
 {
     entity_think_all();
     entity_update_all();
+
+    //did not have time to set up proper gates  and level lists lol
+    if (_game_manager.game_player->position.x > 1000 && _game_manager.level_data.player_spawn.x != 200)
+    {
+        change_level("config/level2.cfg");
+    }
+    else if (_game_manager.game_player->position.x < 150 && _game_manager.level_data.player_spawn.x != 900)
+    {
+        change_level("config/level1.cfg");
+    }
 }
 
 void sim_update() 
@@ -194,8 +204,10 @@ void menu_draw()
     gf2d_graphics_clear_screen();// clears drawing buffers
         // all drawing should happen betweem clear_screen and next_frame
         gf2d_sprite_draw_image(_game_manager.menu_background, gfc_vector2d(0, 0)); //backgrounds drawn first
-        font_draw_text("press ESCAPE to quit", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
-        font_draw_text("Bar Wars", FS_large, GFC_COLOR_YELLOW, gfc_vector2d(400, 300));
+        font_draw_text("press ESCAPE to quit game", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
+        font_draw_text("Bar Wars", FS_astronomical, GFC_COLOR_YELLOW, gfc_vector2d(400, 300));
+        font_draw_text("1. Play Game", FS_large, GFC_COLOR_ORANGE, gfc_vector2d(400, 450));
+        font_draw_text("2. Simulation Mode", FS_large, GFC_COLOR_ORANGE, gfc_vector2d(400, 500));
     gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
 }
 void main_draw()
@@ -209,7 +221,7 @@ void main_draw()
         entity_draw_all();
 
         //UI elements last
-        font_draw_text("press ESCAPE to quit\n is fairly neat", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
+        font_draw_text("press ESCAPE to quit to menu", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
         draw_hud(_game_manager.game_player);
      gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
 }
@@ -241,7 +253,7 @@ void sim_draw()
         //draw bodies and ents
         entity_draw_all();
         //draw UI
-        font_draw_text("you are in sim mode", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
+        font_draw_text("ESC: quit to main 1. spawn body 2. spawn moving body", FS_medium, GFC_COLOR_WHITE, gfc_vector2d(10, 10));
     gf2d_graphics_next_frame();// render current draw frame and skip to the next frame
     return;
 }

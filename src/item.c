@@ -82,6 +82,7 @@ void item_triggered(Collider* self, Collider* other)
 
     self_ent->alive = 0; //should free in future but I gotta figure out a queue or something
 }
+
 void item_draw(Entity* self) {
 
 }

@@ -154,7 +154,7 @@ void entity_clear_all(Entity* ignore)
 		if (ignore && &_entity_manager.entityList[i] == ignore) continue;
 		_entity_manager.entityList[i]._inuse = false;
 
-		slog("about to free an entity");
+		//slog("about to free an entity");
 		entity_free(&_entity_manager.entityList[i]);
 
 	}
@@ -266,18 +266,18 @@ void entity_free(Entity* self)
 	if (self->sprite) {
 		gf2d_sprite_free(self->sprite);
 		self->sprite = NULL; //forgot to do this before and safe to say it caused some problems rip
-		slog("sprite freed");
+		//slog("sprite freed");
 	}
 	if (self->collider) {
 		free(self->collider);
 		self->collider = NULL;
-		slog("collider freed");
+		//slog("collider freed");
 	}
 	if (self->body) {
 		body_free(self->body); //free body allocated data first
 		free(self->body);
 		self->body = NULL;
-		slog("collider freed");
+		//slog("collider freed");
 	}
 	//free anything special that may have been allocated FOR this
 	if (self->free) {

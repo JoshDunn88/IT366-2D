@@ -21,4 +21,6 @@ typedef struct Level_S
 Level load_level_config_from_file(const char* filename);
 
 void clear_level_data(Level currentlevel);
+
+
 #endif

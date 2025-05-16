@@ -52,13 +52,13 @@ Level load_level_config_from_file(const char* filename)
             {
                 listnth = sj_array_get_nth(objectlist, i);
                 if (!listnth)continue;
-                object = world_new_static_object();
-                sj_object_get_value_as_float(listnth, "spawnx", &object->body->position.x);
-                sj_object_get_value_as_float(listnth, "spawny", &object->body->position.y);
+                object = world_new_object_old();
+                sj_object_get_value_as_float(listnth, "spawnx", &object->collider->position.x);
+                sj_object_get_value_as_float(listnth, "spawny", &object->collider->position.y);
                 //object->scale = gfc_vector2d(1, 1);
                 //load object type function instead of all this?
                 
-                slog("spawned new object at %f, %f ", object->body->position.x, object->body->position.y);
+                //slog("spawned new object at %f, %f ", object->collider->position.x, object->collider->position.y);
             }
         }
     }

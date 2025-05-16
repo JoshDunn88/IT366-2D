@@ -45,6 +45,7 @@ void font_close()
 	memset(&font_manager, 0, sizeof(FontManager));
 	TTF_Quit();
 }
+
 void font_init()
 {
 	TTF_Font* font;
@@ -173,7 +174,7 @@ void font_draw_text(const char* text, FontStyle style, GFC_Color color, GFC_Vect
 
 	font = gfc_list_get_nth(font_manager.fonts, style);
 	if (!font) {
-		slog("failed to render text %s, missing font stlye %i", text, style);
+		slog("failed to render text %s, missing font style %i", text, style);
 		return;
 	}
 

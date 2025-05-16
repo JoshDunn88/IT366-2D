@@ -18,8 +18,8 @@ Player_Data* player_data_new() {
         return NULL;
     }
     data->health = 100;
-    data->max_speed = 5;
-    move_speed = 5; //idk why man ill better this later nvm I know why its for resets lol
+    data->max_speed = 8;
+    move_speed = 5; //for resets 
     data->sloshed = false;
     return data;
 }
@@ -130,8 +130,9 @@ void player_update(Entity* self)
     //slog("player position: %f, %f", self->position.x, self->position.y);
 
     check_world_bounds(self->collider); //todo add rect collision kinda done
-
-    camera_center_on(self->position);
+    GFC_Vector2D center = { 0 };
+    gfc_vector2d_add(center, gfc_vector2d(80, 80), self->position);
+    camera_center_on(center);
     return;
 }
 
